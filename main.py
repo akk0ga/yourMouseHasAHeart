@@ -1,6 +1,5 @@
 import winsound, pyautogui, pynput
 
-
 def test():
     # winsound.PlaySound('baka_1.wav', winsound.SND_FILENAME)
 
