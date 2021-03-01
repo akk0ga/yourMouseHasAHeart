@@ -1,11 +1,17 @@
-import winsound, pyautogui, pynput
-from pynput.mouse import Listener
+# import winsound, pyautogui, pynput
+from mouse.Mouse import Mouse
 
 
-def on_move(x, y):
-    print('on move')
+class Main:
+
+    def __init__(self):
+        self.mouse = Mouse()
+
+    def run(self):
+        while True:
+            self.mouse.get_axes()
 
 
 if __name__ == '__main__':
-    with Listener(on_move=on_move) as listener:
-        listener.join()
+    program = Main()
+    program.run()
