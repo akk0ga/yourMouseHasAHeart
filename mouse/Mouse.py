@@ -38,3 +38,12 @@ class Mouse:
 
     def get_y(self):
         return self.__y
+
+    def del_x(self):
+        del self.__x
+
+    def del_y(self):
+        del self.__y
+
+    x = property(get_x, set_x, del_x)
+    y = property(get_y, set_y, del_y)
