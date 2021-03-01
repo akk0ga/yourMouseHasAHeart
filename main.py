@@ -1,7 +1,11 @@
 import winsound, pyautogui, pynput
+from pynput.mouse import Listener
 
-def test():
-    # winsound.PlaySound('baka_1.wav', winsound.SND_FILENAME)
+
+def on_move(x, y):
+    print('on move')
+
 
 if __name__ == '__main__':
-    test()
+    with Listener(on_move=on_move) as listener:
+        listener.join()
