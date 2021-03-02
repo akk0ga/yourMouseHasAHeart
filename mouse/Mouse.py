@@ -75,10 +75,10 @@ class Mouse(Listener, Action):
             new_axes = self.get_axes()
             difference = self.__axes_difference(new_axes, original_axes)
 
-            #check choice
+            # check choice
             if difference > 1000:
-                # self.__voice.move_fast_x()
-                self.__action.fast_movement_random()
+                self.__voice.move_fast_x()
+                self.__action._fast_movement_random(1920, 1080)
 
             elif difference > 300:
                 self.__voice.move_slow_x()
@@ -87,7 +87,6 @@ class Mouse(Listener, Action):
             with open(self.log, 'a') as log:
                 log.write(f'{self.__axes_difference(new_axes, original_axes)}\n')
                 log.close()
-
 
     """
     attribute parameter
