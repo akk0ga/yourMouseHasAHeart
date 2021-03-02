@@ -20,6 +20,7 @@ class Main:
         while True:
             self.mouse.listener_event_mouse()
 
+
 if __name__ == '__main__':
     program = Main()
     program.run()

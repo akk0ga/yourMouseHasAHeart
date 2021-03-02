@@ -1,5 +1,6 @@
 # filename
 log = 'log.txt'
+average_log = 'average_log.txt'
 
 # stock value from the file
 datas = []
@@ -15,6 +16,8 @@ total = 0
 with open(log, 'r') as data:
     # read the line to display only values get
     for line in data:
+        if 'average :' in line:
+            break
         if not 'mouse position :' in line:
             datas.append(line)
     data.close()
@@ -25,9 +28,14 @@ for value in datas:
     i += 1
     total += 1
 
+# calc the average
 for value in datas:
     moyenne += abs(value)
-
 total = moyenne // total
 
 print(f'la moyenne est de : {total}')
+
+# add the average in the file
+with open(average_log, 'a') as log:
+    log.write(f'{total}\n')
+    log.close()
