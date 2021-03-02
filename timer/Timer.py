@@ -6,6 +6,10 @@ class Timer:
         """this class have method wich were used for mouse event"""
         self.__move_time = float(move_time)
 
+    def timer_original_to_new(self):
+
+
+
     def set_move_time(self, new_move_time):
         self.__move_time = new_move_time
 

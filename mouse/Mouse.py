@@ -32,7 +32,7 @@ class Mouse(Listener):
     def get_axes(self):
         """
         get the mouse axes
-        :rtype: string
+        :rtype: tuple
         """
         original_axes = self.__controller.position
         return original_axes
@@ -56,20 +56,27 @@ class Mouse(Listener):
         with mouse.Listener(on_move=self.__on_move) as listener:
             listener.join()
 
+    def axes_difference(self, original_axes: tuple, new_axes: tuple):
+            # split tuple
+            original_x, original_y = original_axes
+            new_x, new_y = new_axes
+
+            #make the difference between axes x atm
+            result = original_x - new_x
+            return result
+
     def listener_event_mouse(self):
         with mouse.Events() as event:
-            original_x, original_y = self.get_axes()
-            time.sleep(0.2)
+            original_axes = self.get_axes()
+            time.sleep(0.3)
         if event:
-            new_x, new_y = self.get_axes()
-            print('=======================================')
-            print(f'new position\n\tX: {new_x}\n\tY: {new_y}')
-            print('=======================================\n')
+            new_axes = self.get_axes()
+            # new_x, new_y = self.get_axes()
+            print(self.axes_difference(new_axes, original_axes))
 
     """
     attribute parameter
     """
-
     def set_x(self, x: int):
         self.__x = x
 
