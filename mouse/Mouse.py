@@ -14,11 +14,11 @@ class Mouse(Listener):
         :param x:
         :param y:
         """
-        #set the mixer param for playing sound
+        # set the mixer param for playing sound
         mixer.init()
         mixer.music.set_volume(0.5)
 
-        #attribute
+        # attribute
         self.__controller = mouse.Controller()
         self.__x = x
         self.__y = y
@@ -28,7 +28,7 @@ class Mouse(Listener):
         }
         self.test = 0
 
-        #for the log
+        # for the log
         self.log = 'log/log.txt'
         mixer.music.load(self.__sound['short'])
 
@@ -59,29 +59,38 @@ class Mouse(Listener):
         with mouse.Listener(on_move=self.__on_move) as listener:
             listener.join()
 
-    def axes_difference(self, original_axes: tuple, new_axes: tuple):
-            # split tuple
-            original_x, original_y = original_axes
-            new_x, new_y = new_axes
+    def __axes_difference(self, original_axes: tuple, new_axes: tuple):
+        # split tuple
+        original_x, original_y = original_axes
+        new_x, new_y = new_axes
 
-            #make the difference between axes x atm
-            result = original_x - new_x
-            return result
+        # make the difference between axes x atm
+        result = original_x - new_x
+        return abs(result)
 
     def listener_event_mouse(self):
+        # listen mouse event
         with mouse.Events() as event:
             original_axes = self.get_axes()
             time.sleep(0.3)
-        if event:
+
+        #if mouse move
+        if event and not mixer.music.get_busy():
             new_axes = self.get_axes()
-            # new_x, new_y = self.get_axes()
+            print(self.__axes_difference(new_axes, original_axes))
+            # if the difference is > 300 sound is playing
+            if self.__axes_difference(new_axes, original_axes) > 500:
+                mixer.music.play()
+            """
             with open(self.log, 'a') as log:
-                log.write(f'{self.axes_difference(new_axes, original_axes)}\n')
+                log.write(f'{self.__axes_difference(new_axes, original_axes)}\n')
                 log.close()
+            """
 
     """
     attribute parameter
     """
+
     def set_x(self, x: int):
         self.__x = x
 
