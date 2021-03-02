@@ -27,6 +27,9 @@ class Mouse(Listener):
             'short': 'music/baka_1.wav'
         }
         self.test = 0
+
+        #for the log
+        self.log = 'log.txt'
         mixer.music.load(self.__sound['short'])
 
     def get_axes(self):
@@ -72,7 +75,9 @@ class Mouse(Listener):
         if event:
             new_axes = self.get_axes()
             # new_x, new_y = self.get_axes()
-            print(self.axes_difference(new_axes, original_axes))
+            with open(self.log, 'a') as log:
+                log.write(f'{self.axes_difference(new_axes, original_axes)}\n')
+                log.close()
 
     """
     attribute parameter
