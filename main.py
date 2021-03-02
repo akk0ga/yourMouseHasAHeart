@@ -1,6 +1,6 @@
 # maybe i used those import pyautogui
 from mouse.Mouse import Mouse
-from mouse.Voice import Voice
+
 
 class Main:
 
@@ -8,7 +8,6 @@ class Main:
         self.mouse = Mouse()
         self.mouse.x = 510
         self.mouse.y = 0
-        self.voice = Voice()
 
     def run(self):
         # self.mouse.listener_mouse_move()

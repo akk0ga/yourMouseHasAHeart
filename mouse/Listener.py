@@ -2,10 +2,6 @@ import abc
 
 
 class Listener(abc.ABC):
-    @abc.abstractmethod
-    def listener_mouse_move(self):
-        """listen the mouse movement action"""
-        pass
 
     def listener_mouse_scroll(self):
         """listen the mouse scroll action"""

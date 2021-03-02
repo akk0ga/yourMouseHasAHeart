@@ -13,8 +13,6 @@ class Voice:
     def move_fast_x(self):
         """
         this is used when the mouse move fast
-        :param difference_calc:
-        :param difference_request:
         :return void:
         """
         mixer.music.load('voice/fast.wav')
@@ -24,8 +22,6 @@ class Voice:
     def move_slow_x(self):
         """
         this is used when the mouse go slow and randomize or not a sound
-        :param difference_calc:
-        :param difference_request:
         :return void:
         """
         mixer.music.load('voice/baka_1.wav')

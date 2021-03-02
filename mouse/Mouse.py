@@ -1,14 +1,17 @@
 import time
 
 from pynput import mouse
-from mouse.Listener import Listener
 from pygame import mixer
+
+from mouse.Listener import Listener
 from mouse.Voice import Voice
+from mouse.Action import Action
 
 
-class Mouse(Listener):
+class Mouse(Listener, Action):
 
     def __init__(self, x=0, y=0):
+        super().__init__()
         """
         x is the X mouse's axe and y is the Y mouse's axe, this class is used
         to get the mouse event
@@ -24,6 +27,7 @@ class Mouse(Listener):
         self.__x = x
         self.__y = y
         self.__voice = Voice()
+        self.__action = Action()
 
         # for the log
         self.log = 'log/log.txt'
@@ -51,10 +55,6 @@ class Mouse(Listener):
         print(f'new position\n\tX: {x}\n\tY: {y}')
         print('=======================================\n')
 
-    def listener_mouse_move(self):
-        with mouse.Listener(on_move=self.__on_move) as listener:
-            listener.join()
-
     def __axes_difference(self, original_axes: tuple, new_axes: tuple):
         # split tuple
         original_x, original_y = original_axes
@@ -77,7 +77,8 @@ class Mouse(Listener):
 
             #check choice
             if difference > 1000:
-                self.__voice.move_fast_x()
+                # self.__voice.move_fast_x()
+                self.__action.fast_movement_random()
 
             elif difference > 300:
                 self.__voice.move_slow_x()
