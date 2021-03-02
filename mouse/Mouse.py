@@ -29,7 +29,7 @@ class Mouse(Listener):
         self.test = 0
 
         #for the log
-        self.log = 'log.txt'
+        self.log = 'log/log.txt'
         mixer.music.load(self.__sound['short'])
 
     def get_axes(self):
