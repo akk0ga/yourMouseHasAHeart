@@ -8,25 +8,41 @@ class Voice:
         this class is used to choose the correct voice line on the action
         """
         self.__volume = 0.2
+        self.__voice_line_start = ('hello_1', 'hello_2', 'hello_3', 'hello_4')
         mixer.init()
+
+    def __play(self):
+        """
+        play the music and set the volume
+        :return:
+        """
+        mixer.music.play()
+        mixer.music.set_volume(self.__volume)
+
+    def start(self):
+        """
+        voice launch only one time when program is launched
+        :return:
+        """
+        quote = randint(0, 3)
+        mixer.music.load(f'voice/start/{self.__voice_line_start[quote]}.wav')
+        self.__play()
 
     def move_fast_x(self):
         """
-        this is used when the mouse move fast
+        this is used when the __mouse move fast
         :return void:
         """
         mixer.music.load('voice/fast.wav')
-        mixer.music.play()
-        mixer.music.set_volume(self.__volume)
+        self.__play()
 
     def move_slow_x(self):
         """
-        this is used when the mouse go slow and randomize or not a sound
+        this is used when the __mouse go slow and randomize or not a sound
         :return void:
         """
         mixer.music.load('voice/baka_1.wav')
-        mixer.music.play()
-        mixer.music.set_volume(self.__volume)
+        self.__play()
 
     def set_volume(self, volume):
         self.__volume = volume

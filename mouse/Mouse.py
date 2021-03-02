@@ -13,8 +13,8 @@ class Mouse(Listener, Action):
     def __init__(self, x=0, y=0):
         super().__init__()
         """
-        x is the X mouse's axe and y is the Y mouse's axe, this class is used
-        to get the mouse event
+        x is the X __mouse's axe and y is the Y __mouse's axe, this class is used
+        to get the __mouse event
         :param x:
         :param y:
         """
@@ -28,14 +28,13 @@ class Mouse(Listener, Action):
         self.__y = y
         self.__voice = Voice()
         self.__action = Action()
-        self.__start = True
 
         # for the log
         self.log = 'log/log.txt'
 
     def get_axes(self):
         """
-        get the mouse axes
+        get the __mouse axes
         :rtype: tuple
         """
         original_axes = self.__controller.position
@@ -43,13 +42,13 @@ class Mouse(Listener, Action):
 
     def set_position(self):
         """
-        set the mouse position to another axes
+        set the __mouse position to another axes
         :rtype: void
         """
         self.__controller.position = (self.__x, self.__y)
 
     def __on_move(self, x, y):
-        """for mouse movement"""
+        """for __mouse movement"""
         self.__x = x
         self.__y = y
         print('=======================================')
@@ -66,27 +65,25 @@ class Mouse(Listener, Action):
         return abs(result)
 
     def listener_event_mouse(self):
-        # listen mouse event
+        # listen __mouse event
         with mouse.Events() as event:
             original_axes = self.get_axes()
             time.sleep(0.3)
 
-        # if mouse move
+        # if __mouse move
         if event and not mixer.music.get_busy():
             new_axes = self.get_axes()
             difference = self.__axes_difference(new_axes, original_axes)
             # check choice
             # when start the program
-            if self.__start:
-                self.__start = False
 
             if difference > 1000:
                 self.__voice.move_fast_x()
                 self.__action._fast_movement_random(1920, 1080)
 
             elif difference > 300:
-                #self.__voice.move_slow_x()
-                print('test')
+                self.__voice.move_slow_x()
+
             print(self.__axes_difference(new_axes, original_axes))
 
             with open(self.log, 'a') as log:

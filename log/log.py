@@ -18,7 +18,7 @@ with open(log, 'r') as data:
     for line in data:
         if 'average :' in line:
             break
-        if not 'mouse position :' in line:
+        if not '__mouse position :' in line:
             datas.append(line)
     data.close()
 
