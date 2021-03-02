@@ -14,8 +14,11 @@ class Mouse(Listener):
         :param x:
         :param y:
         """
+        #set the mixer param for playing sound
         mixer.init()
         mixer.music.set_volume(0.5)
+
+        #attribute
         self.__controller = mouse.Controller()
         self.__x = x
         self.__y = y
@@ -24,7 +27,7 @@ class Mouse(Listener):
             'short': 'music/baka_1.wav'
         }
         self.test = 0
-        mixer.music.load(self.__sound['fast'])
+        mixer.music.load(self.__sound['short'])
 
     def get_axes(self):
         """
@@ -32,9 +35,6 @@ class Mouse(Listener):
         :rtype: string
         """
         original_axes = self.__controller.position
-        print('=======================================')
-        print(f'original mouse position\n\tX: {original_axes[0]}\n\tY: {original_axes[1]}')
-        print('=======================================\n')
         return original_axes
 
     def set_position(self):
@@ -59,10 +59,12 @@ class Mouse(Listener):
     def listener_event_mouse(self):
         with mouse.Events() as event:
             original_x, original_y = self.get_axes()
-            print(f'x: {original_x} / y: {original_y}')
-            event = event.get(1)
+            time.sleep(0.2)
         if event:
-            print(event)
+            new_x, new_y = self.get_axes()
+            print('=======================================')
+            print(f'new position\n\tX: {new_x}\n\tY: {new_y}')
+            print('=======================================\n')
 
     """
     attribute parameter
