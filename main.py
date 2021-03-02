@@ -1,8 +1,6 @@
-# maybe i used those import winsound, pyautogui, pynput
+# maybe i used those import pyautogui
 from mouse.Mouse import Mouse
-from pynput import mouse
-from pygame import mixer
-
+from mouse.Voice import Voice
 
 class Main:
 
@@ -10,6 +8,7 @@ class Main:
         self.mouse = Mouse()
         self.mouse.x = 0
         self.mouse.y = 540
+        self.voice = Voice()
 
     def run(self):
         # self.mouse.listener_mouse_move()

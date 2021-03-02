@@ -90,7 +90,6 @@ class Mouse(Listener):
     """
     attribute parameter
     """
-
     def set_x(self, x: int):
         self.__x = x
 
