@@ -3,6 +3,7 @@ import time
 from pynput import mouse
 from mouse.Listener import Listener
 from pygame import mixer
+from mouse.Voice import Voice
 
 
 class Mouse(Listener):
@@ -22,15 +23,10 @@ class Mouse(Listener):
         self.__controller = mouse.Controller()
         self.__x = x
         self.__y = y
-        self.__sound = {
-            'fast': 'music/fast.wav',
-            'short': 'music/baka_1.wav'
-        }
-        self.test = 0
+        self.__voice = Voice()
 
         # for the log
         self.log = 'log/log.txt'
-        mixer.music.load(self.__sound['short'])
 
     def get_axes(self):
         """
@@ -74,22 +70,22 @@ class Mouse(Listener):
             original_axes = self.get_axes()
             time.sleep(0.3)
 
-        #if mouse move
+        # if mouse move
         if event and not mixer.music.get_busy():
             new_axes = self.get_axes()
+            difference = self.__axes_difference(new_axes, original_axes)
             print(self.__axes_difference(new_axes, original_axes))
-            # if the difference is > 300 sound is playing
-            if self.__axes_difference(new_axes, original_axes) > 500:
-                mixer.music.play()
-            """
+            self.__voice.move_fast_x(difference, 500)
+
             with open(self.log, 'a') as log:
                 log.write(f'{self.__axes_difference(new_axes, original_axes)}\n')
                 log.close()
-            """
+
 
     """
     attribute parameter
     """
+
     def set_x(self, x: int):
         self.__x = x
 

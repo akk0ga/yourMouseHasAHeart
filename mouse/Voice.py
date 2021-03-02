@@ -1,5 +1,5 @@
 from pygame import mixer
-
+from random import randint
 
 class Voice:
     def __init__(self):
@@ -14,12 +14,25 @@ class Voice:
 
         mixer.init()
 
-    def __move_fast(self):
+    def move_fast_x(self, difference_calc, difference_request):
         """
-        move fast is used when the mouse has a axes difference of min 500
-        :return:
+        this is used when the mouse move fast
+        :param difference_calc:
+        :param difference_request:
+        :return void:
         """
-        self.__file['short'].play()
+        while difference_calc > difference_request:
+            self.__file['fast'].play()
+
+    def move_slow_x(self, difference_calc, difference_request):
+        """
+        this is used when the mouse go slow and randomize or not a sound
+        :param difference_calc:
+        :param difference_request:
+        :return void:
+        """
+        if difference_calc > difference_request and not mixer.get_busy():
+            self.__file['short'].play()
 
     def set_volume(self, volume):
         self.__volume = volume

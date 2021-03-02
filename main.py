@@ -6,8 +6,8 @@ class Main:
 
     def __init__(self):
         self.mouse = Mouse()
-        self.mouse.x = 0
-        self.mouse.y = 540
+        self.mouse.x = 510
+        self.mouse.y = 0
         self.voice = Voice()
 
     def run(self):
