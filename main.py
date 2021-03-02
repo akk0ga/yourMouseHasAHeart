@@ -1,17 +1,19 @@
 # maybe i used those import winsound, pyautogui, pynput
 from mouse.Mouse import Mouse
+from pynput import mouse
+from pygame import mixer
 
 
 class Main:
 
     def __init__(self):
-        self.mouse = Mouse(4)
+        self.mouse = Mouse()
+        self.mouse.x = 0
+        self.mouse.y = 0
 
     def run(self):
-        print(self.mouse.x)
-        self.mouse.x = 2
-        print(self.mouse.x)
-
+        # self.mouse.listener_mouse_move()
+        self.mouse.listener_event_mouse()
 
 if __name__ == '__main__':
     program = Main()
