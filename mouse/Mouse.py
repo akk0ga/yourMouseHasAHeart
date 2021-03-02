@@ -81,7 +81,7 @@ class Mouse(Listener, Action):
                 self.__voice.move_fast_x()
                 self.__action._fast_movement_random(1920, 1080)
 
-            elif difference > 300:
+            elif difference > 600:
                 self.__voice.move_slow_x()
 
             print(self.__axes_difference(new_axes, original_axes))

@@ -8,7 +8,6 @@ class Voice:
         this class is used to choose the correct voice line on the action
         """
         self.__volume = 0.2
-        self.__voice_line_start = ('hello_1', 'hello_2', 'hello_3', 'hello_4')
         mixer.init()
 
     def __play(self):
@@ -25,7 +24,7 @@ class Voice:
         :return:
         """
         quote = randint(0, 3)
-        mixer.music.load(f'voice/start/{self.__voice_line_start[quote]}.wav')
+        mixer.music.load(f'voice/start/hello_{quote}.wav')
         self.__play()
 
     def move_fast_x(self):
@@ -33,7 +32,8 @@ class Voice:
         this is used when the __mouse move fast
         :return void:
         """
-        mixer.music.load('voice/fast.wav')
+        quote = randint(0, 2)
+        mixer.music.load('voice/fast/fast_.wav')
         self.__play()
 
     def move_slow_x(self):
