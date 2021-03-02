@@ -28,6 +28,7 @@ class Mouse(Listener, Action):
         self.__y = y
         self.__voice = Voice()
         self.__action = Action()
+        self.__start = True
 
         # for the log
         self.log = 'log/log.txt'
@@ -74,14 +75,18 @@ class Mouse(Listener, Action):
         if event and not mixer.music.get_busy():
             new_axes = self.get_axes()
             difference = self.__axes_difference(new_axes, original_axes)
-
             # check choice
+            # when start the program
+            if self.__start:
+                self.__start = False
+
             if difference > 1000:
                 self.__voice.move_fast_x()
                 self.__action._fast_movement_random(1920, 1080)
 
             elif difference > 300:
-                self.__voice.move_slow_x()
+                #self.__voice.move_slow_x()
+                print('test')
             print(self.__axes_difference(new_axes, original_axes))
 
             with open(self.log, 'a') as log:

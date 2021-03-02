@@ -8,6 +8,10 @@ class Action:
         self.__speed = 0.1
         pyautogui.FAILSAFE = False
 
+    def _start(self, axes):
+
+
+
     def _fast_movement_random(self, screen_width: int = 0, screen_height: int = 0):
         """
         make to the mouse fast and random direction

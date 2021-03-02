@@ -10,7 +10,6 @@ class Main:
         self.mouse.y = 0
 
     def run(self):
-        # self.mouse.listener_mouse_move()
         print('=======================================')
         print(f'original mouse position\n\tX: {self.mouse.get_axes()[0]}\n\tY: {self.mouse.get_axes()[1]}')
         print('=======================================\n')
