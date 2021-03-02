@@ -8,10 +8,9 @@ class Voice:
         """
         self.__volume = 0.5
         self.__file ={
-            'short': mixer.Sound('music/baka_1.wav'),
-            'fast': mixer.Sound('music/fast.wav')
+            'short': mixer.music.load('music/baka_1.wav'),
+            'fast': mixer.music.load('music/fast.wav')
         }
-
         mixer.init()
 
     def move_fast_x(self, difference_calc, difference_request):
@@ -22,7 +21,11 @@ class Voice:
         :return void:
         """
         while difference_calc > difference_request:
-            self.__file['fast'].play()
+            if not mixer.music.get_busy():
+                mixer.music.load('music/short.wav')
+                mixer.music.play()
+                mixer.music.set_volume(0.2)
+
 
     def move_slow_x(self, difference_calc, difference_request):
         """

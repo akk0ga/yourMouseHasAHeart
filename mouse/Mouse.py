@@ -71,7 +71,7 @@ class Mouse(Listener):
             time.sleep(0.3)
 
         # if mouse move
-        if event and not mixer.music.get_busy():
+        if event:
             new_axes = self.get_axes()
             difference = self.__axes_difference(new_axes, original_axes)
             print(self.__axes_difference(new_axes, original_axes))
