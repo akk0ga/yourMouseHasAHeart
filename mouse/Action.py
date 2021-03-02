@@ -14,7 +14,7 @@ class Action:
         make to the __mouse fast and random direction
         :return:
         """
-        state = float(2)
+        state = float(1.5)
         print(state)
         while state > float(0):
             pyautogui.moveTo(x=randint(0, screen_width), y=randint(0, screen_height), duration=self.__speed)
