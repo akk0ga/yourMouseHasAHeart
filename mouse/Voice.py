@@ -23,7 +23,7 @@ class Voice:
         voice launch only one time when program is launched
         :return:
         """
-        quote = randint(0, 3)
+        quote = randint(1, 4)
         mixer.music.load(f'voice/start/hello_{quote}.wav')
         self.__play()
 
@@ -32,8 +32,7 @@ class Voice:
         this is used when the __mouse move fast
         :return void:
         """
-        quote = randint(0, 2)
-        mixer.music.load('voice/fast/fast_.wav')
+        mixer.music.load(f'voice/fast/fast_1.wav')
         self.__play()
 
     def move_slow_x(self):
