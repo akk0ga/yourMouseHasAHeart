@@ -78,8 +78,9 @@ class Mouse(Listener, Action):
             # when start the program
 
             if difference > 1000:
-                self.__voice.move_fast_x()
-                self.__action._fast_movement_random(1920, 1080)
+                voice, duration = self.__voice.move_fast_x_choose()
+                self.__voice.move_fast_x_play(voice)
+                self.__action._fast_movement_random(1920, 1080, duration)
 
             elif difference > 600:
                 self.__voice.move_slow_x()

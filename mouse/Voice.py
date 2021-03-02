@@ -27,12 +27,23 @@ class Voice:
         mixer.music.load(f'voice/start/hello_{quote}.wav')
         self.__play()
 
-    def move_fast_x(self):
+    def move_fast_x_choose(self):
+        """
+        on return the first index is the file and the second is the time of sound
+        :return: tuple
+        """
+        quote = randint(1, 2)
+        if quote == 1:
+            return 1, 1.5
+        if quote == 2:
+            return 2, 2
+
+    def move_fast_x_play(self, voice: int = 1):
         """
         this is used when the __mouse move fast
         :return void:
         """
-        mixer.music.load(f'voice/fast/fast_1.wav')
+        mixer.music.load(f'voice/fast/fast_{voice}.wav')
         self.__play()
 
     def move_slow_x(self):
