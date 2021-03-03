@@ -24,12 +24,19 @@ class Action(Voice):
     def _confused_action(self) -> None:
         self.__voice._confused()
 
-    def _fast_move_x(self) -> None:
+    def _fast_move_x(self) -> bool:
         """
         make to the __mouse fast and random direction
         :return:
         """
         self.__voice._move_fast_x()
+        confused = randint(0, 15)
         while mixer.music.get_busy():
             pyautogui.moveTo(x=randint(0, self.__screen_width), y=randint(0, self.__screen_height),
                              duration=self.__speed)
+        if confused < 16:
+            self._confused_action()
+            return True
+
+    def _first_move_action(self) -> None:
+        self.__voice._first_move()

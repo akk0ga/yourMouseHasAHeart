@@ -23,11 +23,20 @@ class Voice:
         mixer.music.set_volume(self.__volume)
 
     def __choose_file(self, type: str) -> str:
+        """
+        choose file to load
+        :param type:
+        :return:
+        """
         num_files = len([f for f in os.listdir(f'voice/{type}/{self.__voice_mode}')])
         index = randint(1, num_files)
         return f'voice/{type}/{self.__voice_mode}/{type}_{self.__voice_mode}_{index}.wav'
 
     def _launch(self) -> None:
+        """
+        voice played when program turn on
+        :return:
+        """
         mixer.Sound(f'voice/start/start.wav').set_volume(self.__volume)
         mixer.Sound(f'voice/start/start.wav').play()
 
@@ -54,6 +63,13 @@ class Voice:
         self._launch()
         time.sleep(0.3)
         self.__play('confused')
+
+    def _first_move(self):
+        """
+        play on the first mouse movement
+        :return:
+        """
+        self.__play("first_move")
 
     def set_volume(self, volume: float) -> None:
         self.__volume = volume

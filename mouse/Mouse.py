@@ -58,15 +58,13 @@ class Mouse(Listener, Action):
         result: int = original_x - new_x
         return abs(result)
 
-    def __confused(self) -> None:
-        self._set_position()
-        self.__action._confused_action()
-
     def __x_axes_movement(self, axes_difference: int) -> None:
         if axes_difference > 1000:
-            self.__action._fast_move_x()
-            if randint(0, 15) < 16:
-                self.__confused()
+            if self.__action._fast_move_x():
+                self._set_position()
+
+    def __first_move(self):
+        print('nothing atm')
 
     def start(self) -> None:
         self._set_position()
