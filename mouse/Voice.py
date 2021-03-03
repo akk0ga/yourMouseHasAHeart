@@ -30,6 +30,7 @@ class Voice:
         """
         num_files = len([f for f in os.listdir(f'voice/{type}/{self.__voice_mode}')])
         index = randint(1, num_files)
+        print(f'TEST {index}')
         return f'voice/{type}/{self.__voice_mode}/{type}_{self.__voice_mode}_{index}.wav'
 
     def _launch(self) -> None:
@@ -37,8 +38,9 @@ class Voice:
         voice played when program turn on
         :return:
         """
-        mixer.Sound(f'voice/start/start.wav').set_volume(self.__volume)
-        mixer.Sound(f'voice/start/start.wav').play()
+        mixer.music.load(f'voice/start/start.wav')
+        mixer.music.play()
+        mixer.music.set_volume(self.__volume)
 
     def _start(self) -> None:
         """

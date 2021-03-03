@@ -16,6 +16,7 @@ class Action(Voice):
         pyautogui.FAILSAFE = False
 
     def _start_action(self) -> None:
+        print('run')
         self.__voice._launch()
         time.sleep(0.3)
         self.__voice._start()
@@ -43,4 +44,4 @@ class Action(Voice):
     def _first_move_action(self, started, axes_difference) -> bool:
         if not started and axes_difference > 60:
             self.__voice._first_move()
-        return True
+            return True
