@@ -64,6 +64,12 @@ class Mouse(Listener, Action):
         result = original_x - new_x
         return abs(result)
 
+    def launch(self):
+        self.__voice.launch()
+        time.sleep(0.3)
+        self.__voice.start()
+        self.set_position()
+
     def listener_event_mouse(self):
         # listen __mouse event
         with mouse.Events() as event:
@@ -81,10 +87,8 @@ class Mouse(Listener, Action):
                 self.__voice.move_fast_x_play(voice)
                 self.__action._fast_movement_random(1920, 1080, duration)
                 if confused:
+                    self.set_position()
                     self.__voice.confused()
-
-            elif difference > 600:
-                self.__voice.move_slow_x()
 
             print(self.__axes_difference(new_axes, original_axes))
 

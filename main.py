@@ -1,6 +1,7 @@
 # maybe i used those import pyautogui
 from mouse.Mouse import Mouse
 from mouse.Voice import Voice
+import time
 
 
 class Main:
@@ -10,8 +11,7 @@ class Main:
         self.__voice = Voice()
 
     def run(self):
-        self.__voice.start()
-        self.__mouse.set_position()
+        self.__mouse.launch()
         while True:
             self.__mouse.listener_event_mouse()
 

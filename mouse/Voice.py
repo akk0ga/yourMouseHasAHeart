@@ -1,5 +1,6 @@
 from pygame import mixer
 from random import randint
+import time
 
 
 class Voice:
@@ -18,6 +19,10 @@ class Voice:
         mixer.music.play()
         mixer.music.set_volume(self.__volume)
 
+    def launch(self):
+        mixer.Sound(f'voice/start/start.wav').set_volume(self.__volume)
+        mixer.Sound(f'voice/start/start.wav').play()
+
     def start(self):
         """
         voice launch only one time when program is launched
@@ -27,6 +32,7 @@ class Voice:
         mixer.music.load(f'voice/start/hello_{quote}.wav')
         self.__play()
 
+
     def move_fast_x_choose(self):
         """
         on return the first index is the file and the second is the time of sound
@@ -34,7 +40,7 @@ class Voice:
         :return: tuple
         """
         quote = randint(1, 2)
-        confused = randint(0, 15)
+        confused = randint(0, 100)
         confused = True if confused < 16 else False
         if quote == 1:
             return 1, 1.5, confused
@@ -54,7 +60,10 @@ class Voice:
         play voice when state is confused
         :return:
         """
-        mixer.music.load(f'voice/fast/confused.wav')
+        time.sleep(0.3)
+        self.launch()
+        time.sleep(0.3)
+        mixer.music.load(f'voice/confused/confused.wav')
         self.__play()
 
     def move_slow_x(self):
