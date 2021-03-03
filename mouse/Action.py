@@ -30,16 +30,18 @@ class Action(Voice):
         :return:
         """
         self.__voice._move_fast_x()
-        confused = randint(0, 15)
+        confused = randint(1, 100)
         while mixer.music.get_busy():
             pyautogui.moveTo(x=randint(0, self.__screen_width), y=randint(0, self.__screen_height),
                              duration=self.__speed)
-        if confused < 16:
+        if confused < 26:
             controller.position = (x_position, y_position)
             self._confused_action()
 
     def _slow_move_x(self):
-        print('slow move')
+        speak = randint(1, 100)
+        if speak <= 10:
+            print('test')
 
     def _first_move_action(self, started, axes_difference) -> bool:
         if not started and axes_difference > 60:

@@ -30,7 +30,6 @@ class Voice:
         """
         num_files = len([f for f in os.listdir(f'voice/{type}/{self.__voice_mode}')])
         index = randint(1, num_files)
-        print(f'TEST {index}')
         return f'voice/{type}/{self.__voice_mode}/{type}_{self.__voice_mode}_{index}.wav'
 
     def _launch(self) -> None:

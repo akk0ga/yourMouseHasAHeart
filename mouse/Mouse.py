@@ -60,6 +60,9 @@ class Mouse(Listener, Action):
         if axes_difference > 1000:
             self.__action._fast_move_x(self.__controller, self.__x, self.__y)
 
+        elif 0 < axes_difference < 200:
+            self.__action._slow_move_x()
+
     def __first_move(self, axes_difference: int):
         launched = self.__action._first_move_action(self.__started, axes_difference)
         self.__started = launched
