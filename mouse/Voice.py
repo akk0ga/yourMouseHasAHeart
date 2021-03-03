@@ -9,11 +9,11 @@ class Voice:
         """
         this class is used to choose the correct voice line on the action
         """
-        self.__volume = 0.2
-        self.__voice_mode = voice_mode
+        self.__volume: float = 0.2
+        self.__voice_mode: str = voice_mode
         mixer.init()
 
-    def __play(self, type: str):
+    def __play(self, type: str) -> None:
         """
         play the music and set the volume
         :return:
@@ -22,30 +22,30 @@ class Voice:
         mixer.music.play()
         mixer.music.set_volume(self.__volume)
 
-    def __choose_file(self, type: str):
+    def __choose_file(self, type: str) -> str:
         num_files = len([f for f in os.listdir(f'voice/{type}/{self.__voice_mode}')])
         index = randint(1, num_files)
         return f'voice/{type}/{self.__voice_mode}/{type}_{self.__voice_mode}_{index}.wav'
 
-    def _launch(self):
+    def _launch(self) -> None:
         mixer.Sound(f'voice/start/start.wav').set_volume(self.__volume)
         mixer.Sound(f'voice/start/start.wav').play()
 
-    def _start(self):
+    def _start(self) -> None:
         """
         voice launch only one time when program is launched
         :return:
         """
         self.__play('start')
 
-    def _move_fast_x(self):
+    def _move_fast_x(self) -> None:
         """
         this is used when the __mouse move fast
         :return void:
         """
         self.__play("fast")
 
-    def _confused(self):
+    def _confused(self) -> None:
         """
         play voice when state is confused
         :return:
@@ -55,10 +55,10 @@ class Voice:
         time.sleep(0.3)
         self.__play('confused')
 
-    def set_volume(self, volume):
+    def set_volume(self, volume: float) -> None:
         self.__volume = volume
 
-    def get_volume(self):
+    def get_volume(self) -> float:
         return self.__volume
 
     volume = property(get_volume, set_volume)
