@@ -24,7 +24,8 @@ class Voice:
 
     def __choose_file(self, type: str):
         num_files = len([f for f in os.listdir(f'voice/{type}/{self.__voice_mode}')])
-        return f'voice/{type}/{self.__voice_mode}/{type}_{self.__voice_mode}_{randint(1, num_files)}.wav'
+        index = randint(1, num_files)
+        return f'voice/{type}/{self.__voice_mode}/{type}_{self.__voice_mode}_{index}.wav'
 
     def _launch(self):
         mixer.Sound(f'voice/start/start.wav').set_volume(self.__volume)
