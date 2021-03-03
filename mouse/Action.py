@@ -1,5 +1,4 @@
 import pyautogui
-
 from random import randint
 from pygame import mixer
 import time

@@ -1,11 +1,9 @@
 import time
-
 from pynput import mouse
 from pygame import mixer
 
 from mouse.Listener import Listener
 from mouse.Action import Action
-from random import randint
 
 
 class Mouse(Listener, Action):
@@ -64,8 +62,7 @@ class Mouse(Listener, Action):
 
     def __first_move(self, axes_difference: int):
         launched = self.__action._first_move_action(self.__started, axes_difference)
-        if launched:
-            self.__started = launched
+        self.__started = launched
 
     def start(self) -> None:
         self._set_position()
