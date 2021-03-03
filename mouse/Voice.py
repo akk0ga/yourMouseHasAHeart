@@ -21,9 +21,9 @@ class Voice:
         mixer.music.play()
         mixer.music.set_volume(self.__volume)
 
-    def _count_file(self):
-        num_files = len([f for f in os.listdir(f'voice/fast/{self.__voice_mode}')])
-        return num_files
+    def __choose_file(self, type: str):
+        num_files = len([f for f in os.listdir(f'voice/{type}/{self.__voice_mode}')])
+        return randint(1, num_files)
 
     def _launch(self):
         mixer.Sound(f'voice/start/start.wav').set_volume(self.__volume)
@@ -34,23 +34,15 @@ class Voice:
         voice launch only one time when program is launched
         :return:
         """
-        mixer.music.load(f'voice/start/{self.__voice_mode}/hello_{self.__voice_mode}_{randint(1, 4)}.wav')
+        mixer.music.load(f'voice/start/{self.__voice_mode}/hello_{self.__voice_mode}_{self.__choose_file("start")}.wav')
         self.__play()
-
-    def __move_fast_x_choose(self):
-        """
-        on return the first index is the file and the second
-        confused state
-        :return: tuple
-        """
-        return randint(1, self._count_file())
 
     def _move_fast_x_play(self):
         """
         this is used when the __mouse move fast
         :return void:
         """
-        mixer.music.load(f'voice/fast/{self.__voice_mode}/fast_{self.__voice_mode}_{self.__move_fast_x_choose()}.wav')
+        mixer.music.load(f'voice/fast/{self.__voice_mode}/fast_{self.__voice_mode}_{self.__choose_file("fast")}.wav')
         self.__play()
 
     def _confused(self):
@@ -61,7 +53,7 @@ class Voice:
         time.sleep(0.3)
         self._launch()
         time.sleep(0.3)
-        mixer.music.load(f'voice/confused/en/confused_en_{randint(1, 2)}.wav')
+        mixer.music.load(f'voice/confused/{self.__voice_mode}/confused_{self.__voice_mode}_{randint(1, 2)}.wav')
         self.__play()
 
     def _move_slow_x(self):
