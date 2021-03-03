@@ -30,13 +30,16 @@ class Voice:
     def move_fast_x_choose(self):
         """
         on return the first index is the file and the second is the time of sound
+        confused is for the turret try to find the user with quote
         :return: tuple
         """
         quote = randint(1, 2)
+        confused = randint(0, 15)
+        confused = True if confused < 16 else False
         if quote == 1:
-            return 1, 1.5
+            return 1, 1.5, confused
         if quote == 2:
-            return 2, 2
+            return 2, 2, confused
 
     def move_fast_x_play(self, voice: int = 1):
         """
@@ -44,6 +47,14 @@ class Voice:
         :return void:
         """
         mixer.music.load(f'voice/fast/fast_{voice}.wav')
+        self.__play()
+
+    def confused(self):
+        """
+        play voice when state is confused
+        :return:
+        """
+        mixer.music.load(f'voice/fast/confused.wav')
         self.__play()
 
     def move_slow_x(self):

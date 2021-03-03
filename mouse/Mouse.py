@@ -10,7 +10,7 @@ from mouse.Action import Action
 
 class Mouse(Listener, Action):
 
-    def __init__(self, x=0, y=0):
+    def __init__(self, x=960, y=540):
         super().__init__()
         """
         x is the X __mouse's axe and y is the Y __mouse's axe, this class is used
@@ -74,13 +74,14 @@ class Mouse(Listener, Action):
         if event and not mixer.music.get_busy():
             new_axes = self.get_axes()
             difference = self.__axes_difference(new_axes, original_axes)
-            # check choice
-            # when start the program
 
+            # check choice
             if difference > 1000:
-                voice, duration = self.__voice.move_fast_x_choose()
+                voice, duration, confused = self.__voice.move_fast_x_choose()
                 self.__voice.move_fast_x_play(voice)
                 self.__action._fast_movement_random(1920, 1080, duration)
+                if confused:
+                    self.__voice.confused()
 
             elif difference > 600:
                 self.__voice.move_slow_x()
@@ -94,7 +95,6 @@ class Mouse(Listener, Action):
     """
     attribute parameter
     """
-
     def set_x(self, x: int):
         self.__x = x
 

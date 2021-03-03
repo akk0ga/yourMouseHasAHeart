@@ -8,12 +8,11 @@ class Action:
         self.__speed = 0.1
         pyautogui.FAILSAFE = False
 
-
-    def _fast_movement_random(self, screen_width: int = 0, screen_height: int = 0, time: float = 1):
+    def _fast_movement_random(self, screen_width: int = 0, screen_height: int = 0, time_quote: float = 1):
         """
         make to the __mouse fast and random direction
         :return:
         """
-        while time > float(0):
+        while time_quote > float(0):
             pyautogui.moveTo(x=randint(0, screen_width), y=randint(0, screen_height), duration=self.__speed)
-            time -= self.__speed
+            time_quote -= self.__speed
