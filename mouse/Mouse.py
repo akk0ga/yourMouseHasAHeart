@@ -6,7 +6,7 @@ from pygame import mixer
 from mouse.Listener import Listener
 from mouse.Voice import Voice
 from mouse.Action import Action
-
+from random import randint
 
 class Mouse(Listener, Action, Voice):
 
@@ -88,10 +88,10 @@ class Mouse(Listener, Action, Voice):
 
             # check choice
             if difference > 1000:
-                voice, confused = self.__voice._move_fast_x_choose()
-                self.__voice._move_fast_x_play(voice)
+                self.__voice._move_fast_x_play()
                 self.__action._fast_movement_random(1920, 1080)
-                if confused:
+                if randint(0, 15) < 16:
+                    self.set_position()
                     self.__confused()
 
             print(self.__axes_difference(new_axes, original_axes))

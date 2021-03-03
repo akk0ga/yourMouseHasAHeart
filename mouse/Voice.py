@@ -37,20 +37,20 @@ class Voice:
         mixer.music.load(f'voice/start/{self.__voice_mode}/hello_{self.__voice_mode}_{randint(1, 4)}.wav')
         self.__play()
 
-    def _move_fast_x_choose(self):
+    def __move_fast_x_choose(self):
         """
         on return the first index is the file and the second
         confused state
         :return: tuple
         """
-        return randint(1, self._count_file()), True if randint(0, 15) < 16 else False
+        return randint(1, self._count_file())
 
-    def _move_fast_x_play(self, quote: int = 1):
+    def _move_fast_x_play(self):
         """
         this is used when the __mouse move fast
         :return void:
         """
-        mixer.music.load(f'voice/fast/{self.__voice_mode}/fast_{self.__voice_mode}_{quote}.wav')
+        mixer.music.load(f'voice/fast/{self.__voice_mode}/fast_{self.__voice_mode}_{self.__move_fast_x_choose()}.wav')
         self.__play()
 
     def _confused(self):
