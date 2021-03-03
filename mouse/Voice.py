@@ -20,15 +20,15 @@ class Voice:
         mixer.music.set_volume(self.__volume)
 
     def _launch(self):
-        mixer.Sound(f'voice/start/en/start_en.wav').set_volume(self.__volume)
-        mixer.Sound(f'voice/start/en/start_en.wav').play()
+        mixer.Sound(f'voice/start/start.wav').set_volume(self.__volume)
+        mixer.Sound(f'voice/start/start.wav').play()
 
-    def _start(self):
+    def _start(self, voice_mode: str = 'en'):
         """
         voice launch only one time when program is launched
         :return:
         """
-        mixer.music.load(f'voice/start/en/hello_en_{randint(1, 4)}.wav')
+        mixer.music.load(f'voice/start/{voice_mode}/hello_{voice_mode}_{randint(1, 4)}.wav')
         self.__play()
 
     def _move_fast_x_choose(self):

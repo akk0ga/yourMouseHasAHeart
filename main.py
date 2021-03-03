@@ -6,7 +6,7 @@ import time
 class Main:
 
     def __init__(self):
-        self.__mouse = Mouse()
+        self.__mouse = Mouse(voice_mode='fr')
 
     def run(self):
         self.__mouse.launch()

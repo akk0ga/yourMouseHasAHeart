@@ -10,7 +10,7 @@ from mouse.Action import Action
 
 class Mouse(Listener, Action, Voice):
 
-    def __init__(self, x=960, y=540, voice_mode: str = 'en'):
+    def __init__(self, x: int = 960, y: int = 540, voice_mode: str = 'en'):
         super().__init__()
         """
         x is the X __mouse's axe and y is the Y __mouse's axe, this class is used
@@ -69,7 +69,7 @@ class Mouse(Listener, Action, Voice):
     def launch(self):
         self.__voice._launch()
         time.sleep(0.3)
-        self.__voice._start()
+        self.__voice._start(voice_mode=self.__voice_mode)
         self.set_position()
 
     def __confused(self):
