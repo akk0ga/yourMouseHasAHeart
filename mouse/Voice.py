@@ -64,7 +64,7 @@ class Voice:
         time.sleep(0.3)
         self.__play('confused')
 
-    def _first_move(self):
+    def _first_move(self) -> None:
         """
         play on the first mouse movement
         :return:

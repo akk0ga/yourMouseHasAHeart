@@ -38,5 +38,7 @@ class Action(Voice):
             controller.position = (x_position, y_position)
             self._confused_action()
 
-    def _first_move_action(self) -> None:
-        self.__voice._first_move()
+    def _first_move_action(self, started, axes_difference) -> bool:
+        if not started and axes_difference > 60:
+            self.__voice._first_move()
+        return True

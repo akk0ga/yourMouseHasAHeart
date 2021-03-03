@@ -63,9 +63,9 @@ class Mouse(Listener, Action):
             self.__action._fast_move_x(self.__controller, self.__x, self.__y)
 
     def __first_move(self, axes_difference: int):
-        if not self.__started and axes_difference > 60:
-            self.__action._first_move_action()
-            self.__started = True
+        launched = self.__action._first_move_action(self.__started, axes_difference)
+        if launched:
+            self.__started = launched
 
     def start(self) -> None:
         self._set_position()
@@ -83,7 +83,8 @@ class Mouse(Listener, Action):
             difference: int = self.__axes_difference(new_axes, original_axes)
 
             # check choice
-            self.__first_move(difference)
+            if not self.__started:
+                self.__first_move(difference)
             self.__x_axes_movement(difference)
 
             print(self.__axes_difference(new_axes, original_axes))
