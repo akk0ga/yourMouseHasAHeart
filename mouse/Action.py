@@ -1,6 +1,7 @@
 import pyautogui
 
 from random import randint
+from pygame import mixer
 
 
 class Action:
@@ -8,11 +9,10 @@ class Action:
         self.__speed = 0.1
         pyautogui.FAILSAFE = False
 
-    def _fast_movement_random(self, screen_width: int = 0, screen_height: int = 0, time_quote: float = 1):
+    def _fast_movement_random(self, screen_width: int = 0, screen_height: int = 0):
         """
         make to the __mouse fast and random direction
         :return:
         """
-        while time_quote > float(0):
+        while mixer.music.get_busy():
             pyautogui.moveTo(x=randint(0, screen_width), y=randint(0, screen_height), duration=self.__speed)
-            time_quote -= self.__speed

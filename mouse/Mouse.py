@@ -89,9 +89,9 @@ class Mouse(Listener, Action, Voice):
 
             # check choice
             if difference > 1000:
-                voice, duration, confused = self.__voice._move_fast_x_choose()
+                voice, confused = self.__voice._move_fast_x_choose()
                 self.__voice._move_fast_x_play(voice)
-                self.__action._fast_movement_random(1920, 1080, duration)
+                self.__action._fast_movement_random(1920, 1080)
                 if confused:
                     self.__confused()
 

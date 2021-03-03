@@ -1,7 +1,7 @@
 from pygame import mixer
 from random import randint
+import os.path
 import time
-
 
 class Voice:
     def __init__(self):
@@ -19,6 +19,10 @@ class Voice:
         mixer.music.play()
         mixer.music.set_volume(self.__volume)
 
+    def _count_file(self, voice_mode: str = 'en'):
+        num_files = len([f for f in os.listdir(f'voice/fast/{voice_mode}')])
+        return num_files
+
     def _launch(self):
         mixer.Sound(f'voice/start/start.wav').set_volume(self.__volume)
         mixer.Sound(f'voice/start/start.wav').play()
@@ -31,26 +35,20 @@ class Voice:
         mixer.music.load(f'voice/start/{voice_mode}/hello_{voice_mode}_{randint(1, 4)}.wav')
         self.__play()
 
-    def _move_fast_x_choose(self):
+    def _move_fast_x_choose(self, voice_mode: str = 'en'):
         """
-        on return the first index is the file and the second is the time of sound
-        confused is for the turret try to find the user with quote
+        on return the first index is the file and the second
+        confused state
         :return: tuple
         """
-        quote = randint(1, 2)
-        confused = randint(0, 15)
-        confused = True if confused < 16 else False
-        if quote == 1:
-            return 1, 1.5, confused
-        if quote == 2:
-            return 2, 2, confused
+        return randint(1, self._count_file()), True if randint(0, 15) < 16 else False
 
     def _move_fast_x_play(self, voice: int = 1):
         """
         this is used when the __mouse move fast
         :return void:
         """
-        mixer.music.load(f'voice/fast/en/fast_en_{voice}.wav')
+        mixer.music.load(f'voice/fast/en/fast_en_1.wav')
         self.__play()
 
     def _confused(self):
