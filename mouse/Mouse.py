@@ -59,6 +59,8 @@ class Mouse(Listener, Action):
     def __x_axes_movement(self, axes_difference: int) -> None:
         if axes_difference > 1000:
             self.__action._fast_move_x(self.__controller, self.__x, self.__y)
+        elif 0 < axes_difference < 200:
+            self.__action._slow_move_x()
 
     def __first_move(self, axes_difference: int):
         launched = self.__action._first_move_action(self.__started, axes_difference)
@@ -91,7 +93,6 @@ class Mouse(Listener, Action):
                 log.write(f'{self.__axes_difference(new_axes, original_axes)}\n')
                 log.close()
             """
-
     """
     attribute parameter
     """
