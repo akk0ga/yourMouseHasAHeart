@@ -8,13 +8,14 @@ from mouse.Voice import Voice
 from mouse.Action import Action
 
 
-class Mouse(Listener, Action):
+class Mouse(Listener, Action, Voice):
 
-    def __init__(self, x=960, y=540):
+    def __init__(self, x=960, y=540, voice_mode: str = 'en'):
         super().__init__()
         """
         x is the X __mouse's axe and y is the Y __mouse's axe, this class is used
         to get the __mouse event
+        voice mode is en for english voice or fr for french voice
         :param x:
         :param y:
         """
@@ -26,6 +27,7 @@ class Mouse(Listener, Action):
         self.__controller = mouse.Controller()
         self.__x = x
         self.__y = y
+        self.__voice_mode = voice_mode
         self.__voice = Voice()
         self.__action = Action()
 
@@ -65,10 +67,14 @@ class Mouse(Listener, Action):
         return abs(result)
 
     def launch(self):
-        self.__voice.launch()
+        self.__voice._launch()
         time.sleep(0.3)
-        self.__voice.start()
+        self.__voice._start()
         self.set_position()
+
+    def __confused(self):
+        self.set_position()
+        self.__voice._confused()
 
     def listener_event_mouse(self):
         # listen __mouse event
@@ -83,12 +89,11 @@ class Mouse(Listener, Action):
 
             # check choice
             if difference > 1000:
-                voice, duration, confused = self.__voice.move_fast_x_choose()
-                self.__voice.move_fast_x_play(voice)
+                voice, duration, confused = self.__voice._move_fast_x_choose()
+                self.__voice._move_fast_x_play(voice)
                 self.__action._fast_movement_random(1920, 1080, duration)
                 if confused:
-                    self.set_position()
-                    self.__voice.confused()
+                    self.__confused()
 
             print(self.__axes_difference(new_axes, original_axes))
 
@@ -111,11 +116,5 @@ class Mouse(Listener, Action):
     def get_y(self):
         return self.__y
 
-    def del_x(self):
-        del self.__x
-
-    def del_y(self):
-        del self.__y
-
-    x = property(get_x, set_x, del_x)
-    y = property(get_y, set_y, del_y)
+    x = property(get_x, set_x)
+    y = property(get_y, set_y)

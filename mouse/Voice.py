@@ -19,35 +19,33 @@ class Voice:
         mixer.music.play()
         mixer.music.set_volume(self.__volume)
 
-    def launch(self):
+    def _launch(self):
         mixer.Sound(f'voice/start/start.wav').set_volume(self.__volume)
         mixer.Sound(f'voice/start/start.wav').play()
 
-    def start(self):
+    def _start(self):
         """
         voice launch only one time when program is launched
         :return:
         """
-        quote = randint(1, 4)
-        mixer.music.load(f'voice/start/hello_{quote}.wav')
+        mixer.music.load(f'voice/start/hello_{randint(1, 4)}.wav')
         self.__play()
 
-
-    def move_fast_x_choose(self):
+    def _move_fast_x_choose(self):
         """
         on return the first index is the file and the second is the time of sound
         confused is for the turret try to find the user with quote
         :return: tuple
         """
         quote = randint(1, 2)
-        confused = randint(0, 100)
+        confused = randint(0, 15)
         confused = True if confused < 16 else False
         if quote == 1:
             return 1, 1.5, confused
         if quote == 2:
             return 2, 2, confused
 
-    def move_fast_x_play(self, voice: int = 1):
+    def _move_fast_x_play(self, voice: int = 1):
         """
         this is used when the __mouse move fast
         :return void:
@@ -55,18 +53,18 @@ class Voice:
         mixer.music.load(f'voice/fast/fast_{voice}.wav')
         self.__play()
 
-    def confused(self):
+    def _confused(self):
         """
         play voice when state is confused
         :return:
         """
         time.sleep(0.3)
-        self.launch()
+        self._launch()
         time.sleep(0.3)
-        mixer.music.load(f'voice/confused/confused.wav')
+        mixer.music.load(f'voice/confused/confused_{randint(1, 2)}.wav')
         self.__play()
 
-    def move_slow_x(self):
+    def _move_slow_x(self):
         """
         this is used when the __mouse go slow and randomize or not a sound
         :return void:
@@ -80,7 +78,4 @@ class Voice:
     def get_volume(self):
         return self.__volume
 
-    def del_volume(self):
-        del self.__volume
-
-    volume = property(get_volume, set_volume, del_volume)
+    volume = property(get_volume, set_volume)
