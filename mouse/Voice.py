@@ -13,17 +13,18 @@ class Voice:
         self.__voice_mode = voice_mode
         mixer.init()
 
-    def __play(self):
+    def __play(self, type: str):
         """
         play the music and set the volume
         :return:
         """
+        mixer.music.load(self.__choose_file(type))
         mixer.music.play()
         mixer.music.set_volume(self.__volume)
 
     def __choose_file(self, type: str):
         num_files = len([f for f in os.listdir(f'voice/{type}/{self.__voice_mode}')])
-        return randint(1, num_files)
+        return f'voice/{type}/{self.__voice_mode}/{type}_{self.__voice_mode}_{randint(1, num_files)}.wav'
 
     def _launch(self):
         mixer.Sound(f'voice/start/start.wav').set_volume(self.__volume)
@@ -34,16 +35,14 @@ class Voice:
         voice launch only one time when program is launched
         :return:
         """
-        mixer.music.load(f'voice/start/{self.__voice_mode}/hello_{self.__voice_mode}_{self.__choose_file("start")}.wav')
-        self.__play()
+        self.__play('start')
 
-    def _move_fast_x_play(self):
+    def _move_fast_x(self):
         """
         this is used when the __mouse move fast
         :return void:
         """
-        mixer.music.load(f'voice/fast/{self.__voice_mode}/fast_{self.__voice_mode}_{self.__choose_file("fast")}.wav')
-        self.__play()
+        self.__play("fast")
 
     def _confused(self):
         """
@@ -53,16 +52,7 @@ class Voice:
         time.sleep(0.3)
         self._launch()
         time.sleep(0.3)
-        mixer.music.load(f'voice/confused/{self.__voice_mode}/confused_{self.__voice_mode}_{randint(1, 2)}.wav')
-        self.__play()
-
-    def _move_slow_x(self):
-        """
-        this is used when the __mouse go slow and randomize or not a sound
-        :return void:
-        """
-        mixer.music.load('voice/baka_1.wav')
-        self.__play()
+        self.__play('confused')
 
     def set_volume(self, volume):
         self.__volume = volume

@@ -88,7 +88,7 @@ class Mouse(Listener, Action, Voice):
 
             # check choice
             if difference > 1000:
-                self.__voice._move_fast_x_play()
+                self.__voice._move_fast_x()
                 self.__action._fast_movement_random(1920, 1080)
                 if randint(0, 15) < 16:
                     self.set_position()
