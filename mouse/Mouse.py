@@ -27,8 +27,7 @@ class Mouse(Listener, Action, Voice):
         self.__controller = mouse.Controller()
         self.__x = x
         self.__y = y
-        self.__voice_mode = voice_mode
-        self.__voice = Voice()
+        self.__voice = Voice(voice_mode)
         self.__action = Action()
 
         # for the log
@@ -69,7 +68,7 @@ class Mouse(Listener, Action, Voice):
     def launch(self):
         self.__voice._launch()
         time.sleep(0.3)
-        self.__voice._start(voice_mode=self.__voice_mode)
+        self.__voice._start()
         self.set_position()
 
     def __confused(self):
