@@ -97,9 +97,11 @@ class Mouse(Listener, Action, Voice):
 
             print(self.__axes_difference(new_axes, original_axes))
 
+            """
             with open(self.log, 'a') as log:
                 log.write(f'{self.__axes_difference(new_axes, original_axes)}\n')
                 log.close()
+            """
 
     """
     attribute parameter

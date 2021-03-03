@@ -20,15 +20,15 @@ class Voice:
         mixer.music.set_volume(self.__volume)
 
     def _launch(self):
-        mixer.Sound(f'voice/start/start.wav').set_volume(self.__volume)
-        mixer.Sound(f'voice/start/start.wav').play()
+        mixer.Sound(f'voice/start/en/start_en.wav').set_volume(self.__volume)
+        mixer.Sound(f'voice/start/en/start_en.wav').play()
 
     def _start(self):
         """
         voice launch only one time when program is launched
         :return:
         """
-        mixer.music.load(f'voice/start/hello_{randint(1, 4)}.wav')
+        mixer.music.load(f'voice/start/en/hello_en_{randint(1, 4)}.wav')
         self.__play()
 
     def _move_fast_x_choose(self):
@@ -50,7 +50,7 @@ class Voice:
         this is used when the __mouse move fast
         :return void:
         """
-        mixer.music.load(f'voice/fast/fast_{voice}.wav')
+        mixer.music.load(f'voice/fast/en/fast_en_{voice}.wav')
         self.__play()
 
     def _confused(self):
@@ -61,7 +61,7 @@ class Voice:
         time.sleep(0.3)
         self._launch()
         time.sleep(0.3)
-        mixer.music.load(f'voice/confused/confused_{randint(1, 2)}.wav')
+        mixer.music.load(f'voice/confused/en/confused_en_{randint(1, 2)}.wav')
         self.__play()
 
     def _move_slow_x(self):
