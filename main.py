@@ -9,7 +9,7 @@ class Main:
         self.__mouse = Mouse(voice_mode='fr')
 
     def run(self):
-        self.__mouse.launch()
+        self.__mouse.start()
         while True:
             self.__mouse.listener_event_mouse()
 

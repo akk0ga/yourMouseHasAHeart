@@ -4,12 +4,11 @@ from pynput import mouse
 from pygame import mixer
 
 from mouse.Listener import Listener
-from mouse.Voice import Voice
 from mouse.Action import Action
 from random import randint
 
 
-class Mouse(Listener, Action, Voice):
+class Mouse(Listener, Action):
 
     def __init__(self, x: int = 960, y: int = 540, voice_mode: str = 'en'):
         super().__init__()
@@ -28,8 +27,7 @@ class Mouse(Listener, Action, Voice):
         self.__controller = mouse.Controller()
         self.__x: int = x
         self.__y: int = y
-        self.__voice: Voice = Voice(voice_mode)
-        self.__action: Action = Action()
+        self.__action: Action = Action(voice_mode)
 
         # for the log
         self.log: str = 'log/log.txt'
@@ -42,14 +40,14 @@ class Mouse(Listener, Action, Voice):
         original_axes: tuple = self.__controller.position
         return original_axes
 
-    def set_position(self) -> None:
+    def _set_position(self) -> None:
         """
         set the __mouse position to another axes
         :rtype: None
         """
         self.__controller.position = (self.__x, self.__y)
 
-    def __on_move(self, x, y) -> None:
+    def on_move(self, x, y) -> None:
         """for __mouse movement"""
         self.__x: int = x
         self.__y: int = y
@@ -66,15 +64,13 @@ class Mouse(Listener, Action, Voice):
         result: int = original_x - new_x
         return abs(result)
 
-    def launch(self) -> None:
-        self.__voice._launch()
-        time.sleep(0.3)
-        self.__voice._start()
-        self.set_position()
-
     def __confused(self) -> None:
-        self.set_position()
-        self.__voice._confused()
+        self._set_position()
+        self.__action._confused_action()
+
+    def start(self) -> None:
+        self._set_position()
+        self.__action._start_action()
 
     def listener_event_mouse(self) -> None:
         # listen __mouse event
@@ -89,10 +85,8 @@ class Mouse(Listener, Action, Voice):
 
             # check choice
             if difference > 1000:
-                self.__voice._move_fast_x()
-                self.__action._fast_movement_random(1920, 1080)
+                self.__action._fast_move_x()
                 if randint(0, 15) < 16:
-                    self.set_position()
                     self.__confused()
 
             print(self.__axes_difference(new_axes, original_axes))
