@@ -41,7 +41,12 @@ class Action(Voice):
     def _slow_move_x(self):
         speak = randint(1, 100)
         if speak <= 10:
-            print('test')
+            self.__voice._move_slow_x()
+
+    def _medium_move_x(self):
+        speak = randint(1, 100)
+        if speak <= 10:
+            self.__voice._medium_move_x()
 
     def _first_move_action(self, started, axes_difference) -> bool:
         if not started and axes_difference > 60:

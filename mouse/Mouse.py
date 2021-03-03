@@ -63,6 +63,9 @@ class Mouse(Listener, Action):
         elif 0 < axes_difference < 200:
             self.__action._slow_move_x()
 
+        elif 400 < axes_difference < 900:
+            self.__action._medium_move_x()
+
     def __first_move(self, axes_difference: int):
         launched = self.__action._first_move_action(self.__started, axes_difference)
         self.__started = launched

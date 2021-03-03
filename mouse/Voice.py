@@ -55,6 +55,20 @@ class Voice:
         """
         self.__play("fast")
 
+    def _move_slow_x(self) -> None:
+        """
+        play voice line for slow movement
+        :return:
+        """
+        self.__play("slow_move")
+
+    def _medium_move_x(self) -> None:
+        """
+        play voice when movement is medium
+        :return:
+        """
+        self.__play("medium")
+
     def _confused(self) -> None:
         """
         play voice when state is confused
