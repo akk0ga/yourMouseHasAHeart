@@ -10,24 +10,18 @@ from random import randint
 
 class Mouse(Listener, Action):
 
-    def __init__(self, x: int = 960, y: int = 540, voice_mode: str = 'en'):
+    def __init__(self, screen_width: int = 960, screen_height: int = 540, voice_mode: str = 'en'):
         super().__init__()
-        """
-        x is the X __mouse's axe and y is the Y __mouse's axe, this class is used
-        to get the __mouse event
-        voice mode is en for english voice or fr for french voice
-        :param x:
-        :param y:
-        """
         # set the mixer param for playing sound
         mixer.init()
         mixer.music.set_volume(0.5)
 
         # attribute
         self.__controller = mouse.Controller()
-        self.__x: int = x
-        self.__y: int = y
-        self.__action: Action = Action(voice_mode)
+        self.__x: int = screen_width
+        self.__y: int = screen_height
+        self.__action: Action = Action(screen_width=screen_width, screen_height=screen_height, voice_mode=voice_mode)
+        self.__started = False
 
         # for the log
         self.log: str = 'log/log.txt'
@@ -42,13 +36,13 @@ class Mouse(Listener, Action):
 
     def _set_position(self) -> None:
         """
-        set the __mouse position to another axes
+        set mouse position
         :rtype: None
         """
         self.__controller.position = (self.__x, self.__y)
 
     def on_move(self, x, y) -> None:
-        """for __mouse movement"""
+        """debug the mouse position on the screen"""
         self.__x: int = x
         self.__y: int = y
         print('=======================================')
@@ -68,6 +62,12 @@ class Mouse(Listener, Action):
         self._set_position()
         self.__action._confused_action()
 
+    def __x_axes_movement(self, axes_difference: int) -> None:
+        if axes_difference > 1000:
+            self.__action._fast_move_x()
+            if randint(0, 15) < 16:
+                self.__confused()
+
     def start(self) -> None:
         self._set_position()
         self.__action._start_action()
@@ -84,10 +84,7 @@ class Mouse(Listener, Action):
             difference: int = self.__axes_difference(new_axes, original_axes)
 
             # check choice
-            if difference > 1000:
-                self.__action._fast_move_x()
-                if randint(0, 15) < 16:
-                    self.__confused()
+            self.__x_axes_movement(difference)
 
             print(self.__axes_difference(new_axes, original_axes))
 

@@ -2,18 +2,17 @@ import pyautogui
 
 from random import randint
 from pygame import mixer
-from win32api import GetSystemMetrics as screenSize
 import time
 
 from mouse.Voice import Voice
 
 
 class Action(Voice):
-    def __init__(self, voice_mode: str = 'en'):
+    def __init__(self, screen_width: int = 960, screen_height: int = 540, voice_mode: str = 'en'):
         super().__init__(voice_mode)
         self.__speed: float = 0.1
-        self.__screen_width: int = screenSize(0)
-        self.__screen_height: int = screenSize(1)
+        self.__screen_width: int = screen_width
+        self.__screen_height: int = screen_height
         self.__voice: Voice = Voice(voice_mode)
         pyautogui.FAILSAFE = False
 
