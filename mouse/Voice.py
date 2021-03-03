@@ -69,7 +69,7 @@ class Voice:
         play on the first mouse movement
         :return:
         """
-        self.__play("first_move")
+        self.__play("firstMove")
 
     def set_volume(self, volume: float) -> None:
         self.__volume = volume

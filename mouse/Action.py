@@ -24,7 +24,7 @@ class Action(Voice):
     def _confused_action(self) -> None:
         self.__voice._confused()
 
-    def _fast_move_x(self) -> bool:
+    def _fast_move_x(self, controller: object, x_position: int = 960, y_position: int = 540) -> None:
         """
         make to the __mouse fast and random direction
         :return:
@@ -35,8 +35,8 @@ class Action(Voice):
             pyautogui.moveTo(x=randint(0, self.__screen_width), y=randint(0, self.__screen_height),
                              duration=self.__speed)
         if confused < 16:
+            controller.position = (x_position, y_position)
             self._confused_action()
-            return True
 
     def _first_move_action(self) -> None:
         self.__voice._first_move()
