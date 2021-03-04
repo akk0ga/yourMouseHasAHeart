@@ -31,7 +31,7 @@ class Action(Voice):
         :return:
         """
         self.__voice._move_fast_x()
-        confused = randint(1, 100)
+        confused = randint(1, 20)
         while mixer.music.get_busy():
             pyautogui.moveTo(x=randint(0, self.__screen_width), y=randint(0, self.__screen_height),
                              duration=self.__speed)

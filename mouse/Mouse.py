@@ -17,8 +17,8 @@ class Mouse(Listener, Action):
         mixer.music.set_volume(0.5)
 
         # attribute
-        self.__x: int = screen_width//2
-        self.__y: int = screen_height//2
+        self.__x: int = screen_width
+        self.__y: int = screen_height
         self.__action: Action = Action(controller=self.__controller, screen_width=screen_width,
                                        screen_height=screen_height, voice_mode=voice_mode)
         self.__started = False
@@ -61,11 +61,13 @@ class Mouse(Listener, Action):
     def __x_axes_movement(self, axes_difference: int) -> None:
         x, y = self.get_axes()
 
-        if axes_difference > 200 and (x == 0 or x == self.__x):
+        if axes_difference > 200 and (x == 0 or x == self.__x-1):
             self.__action._hit_screen_border_x()
 
         elif axes_difference > 1000:
-            self.__action._fast_move_x(self.__x, self.__y)
+            width = int(self.__x/2)
+            height = int(self.__y/2)
+            self.__action._fast_move_x(width, height)
 
         elif 0 < axes_difference < 200:
             self.__action._slow_move_x()
@@ -98,7 +100,7 @@ class Mouse(Listener, Action):
             self.__x_axes_movement(difference)
 
             if difference > 0:
-                print(self.__axes_difference(new_axes, original_axes))
+                print(self.get_axes())
 
             """
             with open(self.log, 'a') as log:
