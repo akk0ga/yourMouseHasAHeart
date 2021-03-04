@@ -9,6 +9,14 @@ from mouse.Action import Action
 class Mouse(Listener, Action):
 
     def __init__(self, silence_time: int = 15, screen_width: int = 1920, screen_height: int = 1080, voice_mode: str = 'en'):
+        """
+        create mouse instance, silence_time is default 15 for 5 sec if you want 10 sec set
+        to 30
+        :param silence_time:
+        :param screen_width:
+        :param screen_height:
+        :param voice_mode:
+        """
         self.__controller = mouse.Controller()
         super().__init__(controller=self.__controller)
 
@@ -114,6 +122,10 @@ class Mouse(Listener, Action):
         self.__action._start_action()
 
     def listener_event_mouse(self) -> None:
+        """
+        listen what you are doing on the mouse
+        :return:
+        """
         # listen __mouse event
         with mouse.Events() as event:
             original_axes: tuple = self.get_axes()
@@ -139,7 +151,7 @@ class Mouse(Listener, Action):
                     self.__touch_border_screen(difference)
                     # check if the silence time is done
                     if self.__action._wait_to_speak(self.__silence_time):
-                        self.__silence_time = 5
+                        self.__silence_time = 15
                         self.__can_speak = True
                         print('end wait')
                     else:
