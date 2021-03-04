@@ -2,7 +2,6 @@ import pyautogui
 from random import randint
 from pygame import mixer
 import time
-
 from mouse.Voice import Voice
 
 
@@ -39,18 +38,33 @@ class Action(Voice):
             self.__controller.position = (x_position, y_position)
             self._confused_action()
 
-    def _slow_move_x(self):
+    def _slow_move_x(self) -> bool:
         speak = randint(1, 100)
         if speak <= 10:
             self.__voice._move_slow_x()
+            return True
+        else:
+            return False
 
     def _action_medium_move_x(self):
         speak = randint(1, 100)
         if speak <= 10:
             self.__voice._medium_move_x()
+            return True
+        else:
+            return False
 
     def _hit_screen_border_x(self):
         self.__voice._voice_x_border()
+
+    def _wait_to_speak(self, waiting: int) -> bool:
+        waiting -= 1
+        time.sleep(1)
+        if waiting <= 0:
+            return True
+        else:
+            print(f'il faut encore attendre: {waiting}')
+            return False
 
     def _first_move_action(self, started, axes_difference) -> bool:
         if not started and axes_difference > 60:
