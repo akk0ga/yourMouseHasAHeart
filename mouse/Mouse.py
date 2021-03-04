@@ -148,14 +148,14 @@ class Mouse(Listener, Action):
 
                 # if speak is false
                 else:
-                    self.__touch_border_screen(difference)
+                    if difference > 1000:
+                        self.__x_axes_movement(difference)
                     # check if the silence time is done
                     if self.__action._wait_to_speak(self.__silence_time):
                         self.__silence_time = 15
                         self.__can_speak = True
                         print('end wait')
                     else:
-                        self.__touch_border_screen(difference)
                         self.__silence_time -= 1
 
                 print(difference)
