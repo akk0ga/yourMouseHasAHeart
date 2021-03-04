@@ -8,17 +8,19 @@ from mouse.Action import Action
 
 class Mouse(Listener, Action):
 
-    def __init__(self, screen_width: int = 960, screen_height: int = 540, voice_mode: str = 'en'):
-        super().__init__()
+    def __init__(self, screen_width: int = 1920, screen_height: int = 1080, voice_mode: str = 'en'):
+        self.__controller = mouse.Controller()
+        super().__init__(controller=self.__controller)
+
         # set the mixer param for playing sound
         mixer.init()
         mixer.music.set_volume(0.5)
 
         # attribute
-        self.__controller = mouse.Controller()
-        self.__x: int = screen_width
-        self.__y: int = screen_height
-        self.__action: Action = Action(screen_width=screen_width, screen_height=screen_height, voice_mode=voice_mode)
+        self.__x: int = screen_width//2
+        self.__y: int = screen_height//2
+        self.__action: Action = Action(controller=self.__controller, screen_width=screen_width,
+                                       screen_height=screen_height, voice_mode=voice_mode)
         self.__started = False
 
         # for the log
@@ -57,14 +59,19 @@ class Mouse(Listener, Action):
         return abs(result)
 
     def __x_axes_movement(self, axes_difference: int) -> None:
-        if axes_difference > 1000:
-            self.__action._fast_move_x(self.__controller, self.__x, self.__y)
+        x, y = self.get_axes()
+
+        if axes_difference > 200 and (x == 0 or x == self.__x):
+            self.__action._hit_screen_border_x()
+
+        elif axes_difference > 1000:
+            self.__action._fast_move_x(self.__x, self.__y)
 
         elif 0 < axes_difference < 200:
             self.__action._slow_move_x()
 
         elif 400 < axes_difference < 900:
-            self.__action._medium_move_x()
+            self.__action._action_medium_move_x()
 
     def __first_move(self, axes_difference: int):
         launched = self.__action._first_move_action(self.__started, axes_difference)
@@ -98,6 +105,7 @@ class Mouse(Listener, Action):
                 log.write(f'{self.__axes_difference(new_axes, original_axes)}\n')
                 log.close()
             """
+
     """
     attribute parameter
     """

@@ -68,6 +68,9 @@ class Voice:
         """
         self.__play("medium")
 
+    def _voice_x_border(self):
+        self.__play("border")
+
     def _confused(self) -> None:
         """
         play voice when state is confused

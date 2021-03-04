@@ -7,12 +7,13 @@ from mouse.Voice import Voice
 
 
 class Action(Voice):
-    def __init__(self, screen_width: int = 960, screen_height: int = 540, voice_mode: str = 'en'):
+    def __init__(self, controller: object, screen_width: int = 960, screen_height: int = 540, voice_mode: str = 'en'):
         super().__init__(voice_mode)
         self.__speed: float = 0.1
         self.__screen_width: int = screen_width
         self.__screen_height: int = screen_height
         self.__voice: Voice = Voice(voice_mode)
+        self.__controller: object = controller
         pyautogui.FAILSAFE = False
 
     def _start_action(self) -> None:
@@ -24,7 +25,7 @@ class Action(Voice):
     def _confused_action(self) -> None:
         self.__voice._confused()
 
-    def _fast_move_x(self, controller: object, x_position: int = 960, y_position: int = 540) -> None:
+    def _fast_move_x(self, x_position: int = 960, y_position: int = 540) -> None:
         """
         make to the __mouse fast and random direction
         :return:
@@ -35,7 +36,7 @@ class Action(Voice):
             pyautogui.moveTo(x=randint(0, self.__screen_width), y=randint(0, self.__screen_height),
                              duration=self.__speed)
         if confused < 26:
-            controller.position = (x_position, y_position)
+            self.__controller.position = (x_position, y_position)
             self._confused_action()
 
     def _slow_move_x(self):
@@ -43,13 +44,13 @@ class Action(Voice):
         if speak <= 10:
             self.__voice._move_slow_x()
 
-    def _medium_move_x(self):
+    def _action_medium_move_x(self):
         speak = randint(1, 100)
         if speak <= 10:
             self.__voice._medium_move_x()
 
-    def _hit_screen_border_x(self, screen_width: int = 1920):
-
+    def _hit_screen_border_x(self):
+        self.__voice._voice_x_border()
 
     def _first_move_action(self, started, axes_difference) -> bool:
         if not started and axes_difference > 60:
