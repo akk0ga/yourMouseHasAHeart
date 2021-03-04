@@ -48,6 +48,9 @@ class Action(Voice):
         if speak <= 10:
             self.__voice._medium_move_x()
 
+    def _hit_screen_border_x(self, screen_width: int = 1920):
+
+
     def _first_move_action(self, started, axes_difference) -> bool:
         if not started and axes_difference > 60:
             self.__voice._first_move()

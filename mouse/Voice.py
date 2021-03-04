@@ -3,7 +3,6 @@ from random import randint
 import os.path
 import time
 
-
 class Voice:
     def __init__(self, voice_mode):
         """
