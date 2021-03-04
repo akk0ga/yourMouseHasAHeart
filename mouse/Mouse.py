@@ -8,7 +8,7 @@ from mouse.Action import Action
 
 class Mouse(Listener, Action):
 
-    def __init__(self, silence_time: int = 5, screen_width: int = 1920, screen_height: int = 1080, voice_mode: str = 'en'):
+    def __init__(self, silence_time: int = 15, screen_width: int = 1920, screen_height: int = 1080, voice_mode: str = 'en'):
         self.__controller = mouse.Controller()
         super().__init__(controller=self.__controller)
 
@@ -76,7 +76,6 @@ class Mouse(Listener, Action):
             width = int(self.__x/2)
             height = int(self.__y/2)
             self.__action._fast_move_x(width, height)
-            self.__can_speak = False
 
         elif 0 < axes_difference < 200:
             if self.__action._slow_move_x():
@@ -134,14 +133,17 @@ class Mouse(Listener, Action):
                     if not self.__started:
                         self.__first_move(difference)
                     self.__x_axes_movement(difference)
+
                 # if speak is false
                 else:
+                    self.__touch_border_screen(difference)
                     # check if the silence time is done
                     if self.__action._wait_to_speak(self.__silence_time):
                         self.__silence_time = 5
                         self.__can_speak = True
                         print('end wait')
                     else:
+                        self.__touch_border_screen(difference)
                         self.__silence_time -= 1
 
                 print(difference)
