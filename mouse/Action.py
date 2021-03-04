@@ -70,6 +70,9 @@ class Action(Voice):
         else:
             return False
 
+    def _fast_move_y(self):
+        print('fast Y')
+
     def _hit_screen_border_x(self):
         """
         action to do when the mouse hit the border of the screen

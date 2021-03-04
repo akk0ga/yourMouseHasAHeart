@@ -59,7 +59,7 @@ class Mouse(Listener, Action):
         print(f'new position\n\tX: {x}\n\tY: {y}')
         print('=======================================\n')
 
-    def __axes_difference(self, original_axes: tuple, new_axes: tuple) -> int:
+    def __axes_difference(self, original_axes: tuple, new_axes: tuple) -> tuple:
         """
         get the difference for each mouse movement
         :param original_axes:
@@ -71,8 +71,8 @@ class Mouse(Listener, Action):
         new_x, new_y = new_axes
 
         # make the difference between axes x atm
-        result: int = original_x - new_x
-        return abs(result)
+        result: tuple = (abs(original_x - new_x), (new_y - original_y))
+        return result
 
     def __x_axes_movement(self, axes_difference: int) -> None:
         """
@@ -85,11 +85,11 @@ class Mouse(Listener, Action):
             height = int(self.__y/2)
             self.__action._fast_move_x(width, height)
 
-        elif 0 < axes_difference < 200:
+        elif 0 < axes_difference < 300:
             if self.__action._slow_move_x():
                 self.__can_speak = False
 
-        elif 400 < axes_difference < 900:
+        elif 300 < axes_difference < 1000:
             if self.__action._action_medium_move_x():
                 self.__can_speak = False
 
@@ -135,21 +135,22 @@ class Mouse(Listener, Action):
         if event:
             if not mixer.music.get_busy():
                 new_axes: tuple = self.get_axes()
-                difference: int = self.__axes_difference(new_axes, original_axes)
+                difference: tuple = self.__axes_difference(new_axes, original_axes)
+                x_difference, y_difference = difference
 
-                self.__touch_border_screen(difference)
+                self.__touch_border_screen(x_difference)
 
                 # check if mouse can speak
                 if self.__can_speak:
                     # check if first time program run
                     if not self.__started:
-                        self.__first_move(difference)
-                    self.__x_axes_movement(difference)
+                        self.__first_move(x_difference)
+                    self.__x_axes_movement(x_difference)
 
                 # if speak is false
                 else:
-                    if difference > 1000:
-                        self.__x_axes_movement(difference)
+                    if x_difference > 1000:
+                        self.__x_axes_movement(x_difference)
                     # check if the silence time is done
                     if self.__action._wait_to_speak(self.__silence_time):
                         self.__silence_time = 15
@@ -158,7 +159,7 @@ class Mouse(Listener, Action):
                     else:
                         self.__silence_time -= 1
 
-                print(difference)
+                print(y_difference)
 
             """
             with open(self.log, 'a') as log:
