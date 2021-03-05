@@ -36,6 +36,11 @@ class Mouse(Listener, Action):
         # for the log
         self.log: str = 'log/log.txt'
 
+    """
+    =======================================
+    general method
+    =======================================
+    """
     def get_axes(self) -> tuple:
         """
         get the __mouse axes
@@ -51,6 +56,14 @@ class Mouse(Listener, Action):
         """
         self.__controller.position = (self.__x/2, self.__y/2)
 
+    def start(self) -> None:
+        """
+        when the program is launched
+        :return:
+        """
+        self._set_position()
+        self.__action._start_action()
+
     def on_move(self, x, y) -> None:
         """debug the mouse position on the screen"""
         self.__x: int = x
@@ -59,6 +72,11 @@ class Mouse(Listener, Action):
         print(f'new position\n\tX: {x}\n\tY: {y}')
         print('=======================================\n')
 
+    """
+    =======================================
+    movement method
+    =======================================
+    """
     def __axes_difference(self, original_axes: tuple, new_axes: tuple) -> tuple:
         """
         get the difference for each mouse movement
@@ -74,24 +92,34 @@ class Mouse(Listener, Action):
         result: tuple = (abs(original_x - new_x), (new_y - original_y))
         return result
 
-    def __x_axes_movement(self, axes_difference: int) -> None:
+    def __x_axes_movement(self, x_axes_difference: int) -> None:
         """
         check the x axes of the mouse to choose the right acion to do
         :param axes_difference:
         :return:
         """
-        if axes_difference > 1000:
+        if x_axes_difference > 1000:
             width = int(self.__x/2)
             height = int(self.__y/2)
             self.__action._fast_move_x(width, height)
 
-        elif 0 < axes_difference < 300:
+        elif 300 < x_axes_difference < 500:
             if self.__action._slow_move_x():
                 self.__can_speak = False
 
-        elif 300 < axes_difference < 1000:
+        elif 500 < x_axes_difference < 1000:
             if self.__action._action_medium_move_x():
                 self.__can_speak = False
+
+    def __y_axes_movement(self, y_axes_difference) -> None:
+        """
+        test the y axes difference to launch or not action
+        :param y_axes_difference:
+        :return:
+        """
+        if y_axes_difference > 400:
+            self.__action._go_up_movement()
+            self.__can_speak = False
 
     def __touch_border_screen(self, axes_difference: int) -> None:
         """
@@ -102,7 +130,7 @@ class Mouse(Listener, Action):
         x, y = self.get_axes()
 
         if axes_difference > 200 and (x == 0 or x == self.__x-1):
-            self.__action._hit_screen_border_x()
+            self.__action._hit_screen_border_x_movement()
 
     def __first_move(self, axes_difference: int) -> None:
         """
@@ -113,13 +141,13 @@ class Mouse(Listener, Action):
         launched = self.__action._first_move_action(self.__started, axes_difference)
         self.__started = launched
 
-    def start(self) -> None:
-        """
-        when the program is launched
-        :return:
-        """
-        self._set_position()
-        self.__action._start_action()
+    """
+    =======================================
+    click method
+    =======================================
+    """
+    def __click(self):
+        self.__action._action_click()
 
     def listener_event_mouse(self) -> None:
         """
@@ -145,12 +173,15 @@ class Mouse(Listener, Action):
                     # check if first time program run
                     if not self.__started:
                         self.__first_move(x_difference)
-                    self.__x_axes_movement(x_difference)
+
+                    # test axes difference
+                    # self.__x_axes_movement(x_difference)
+                    # self.__y_axes_movement(y_difference)
+
+                    # click movement
 
                 # if speak is false
                 else:
-                    if x_difference > 1000:
-                        self.__x_axes_movement(x_difference)
                     # check if the silence time is done
                     if self.__action._wait_to_speak(self.__silence_time):
                         self.__silence_time = 15
@@ -168,20 +199,15 @@ class Mouse(Listener, Action):
             """
 
     """
-    attribute parameter
+    =======================================
+    getter & setter
+    =======================================
     """
-
     def set_x(self, x: int) -> None:
         self.__x = x
 
     def set_y(self, y: int) -> None:
         self.__y = y
 
-    def get_x(self) -> int:
-        return self.__x
-
-    def get_y(self) -> int:
-        return self.__y
-
-    x = property(get_x, set_x)
-    y = property(get_y, set_y)
+    x = property(fset=set_x)
+    y = property(fset=set_y)

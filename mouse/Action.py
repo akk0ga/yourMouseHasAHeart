@@ -25,7 +25,37 @@ class Action(Voice):
         time.sleep(0.3)
         self.__voice._start()
 
-    def _confused_action(self) -> None:
+    def _wait_to_speak(self, waiting: int) -> bool:
+        """
+        used to make the mouse unspeakable for giving time
+        :param waiting:
+        :return:
+        """
+        waiting -= 1
+        time.sleep(0.3)
+        if waiting <= 0:
+            return True
+        else:
+            print(f'il faut encore attendre: {waiting}')
+            return False
+
+    """
+    =======================================
+    movement part
+    =======================================
+    """
+    def _first_move_action(self, started, axes_difference) -> bool:
+        """
+        use for the first move when program is launched
+        :param started:
+        :param axes_difference:
+        :return:
+        """
+        if not started and axes_difference > 60:
+            self.__voice._first_move()
+            return True
+
+    def _confused_action_movement(self) -> None:
         """
         action when state confused
         :return:
@@ -44,7 +74,7 @@ class Action(Voice):
                              duration=self.__speed)
         if confused < 26:
             self.__controller.position = (x_position, y_position)
-            self._confused_action()
+            self._confused_action_movement()
 
     def _slow_move_x(self) -> bool:
         """
@@ -70,37 +100,24 @@ class Action(Voice):
         else:
             return False
 
-    def _fast_move_y(self):
-        print('fast Y')
+    def _go_up_movement(self):
+        """
+        used when mouse y axes go up
+        :return:
+        """
+        self.__voice._go_up()
 
-    def _hit_screen_border_x(self):
+    def _hit_screen_border_x_movement(self):
         """
         action to do when the mouse hit the border of the screen
         :return:
         """
         self.__voice._voice_x_border()
 
-    def _wait_to_speak(self, waiting: int) -> bool:
-        """
-        used to make the mouse unspeakable for giving time
-        :param waiting:
-        :return:
-        """
-        waiting -= 1
-        time.sleep(0.3)
-        if waiting <= 0:
-            return True
-        else:
-            print(f'il faut encore attendre: {waiting}')
-            return False
-
-    def _first_move_action(self, started, axes_difference) -> bool:
-        """
-        use for the first move when program is launched
-        :param started:
-        :param axes_difference:
-        :return:
-        """
-        if not started and axes_difference > 60:
-            self.__voice._first_move()
-            return True
+    """
+    =======================================
+    click part
+    =======================================
+    """
+    def _action_click(self):
+        print('clicked')

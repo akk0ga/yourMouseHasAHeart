@@ -88,6 +88,13 @@ class Voice:
         """
         self.__play("firstMove")
 
+    def _go_up(self) -> None:
+        """
+        used hen mouse y axes positive
+        :return:
+        """
+        self.__play("up")
+
     def set_volume(self, volume: float) -> None:
         self.__volume = volume
 
