@@ -41,7 +41,7 @@ class Action(Voice):
 
     """
     =======================================
-    movement part
+    movement method
     =======================================
     """
     def _first_move_action(self, started, axes_difference) -> bool:
@@ -116,8 +116,8 @@ class Action(Voice):
 
     """
     =======================================
-    click part
+    click method
     =======================================
     """
     def _action_click(self):
-        print('clicked')
+        self.__voice._c

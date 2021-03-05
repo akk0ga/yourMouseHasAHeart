@@ -95,6 +95,9 @@ class Voice:
         """
         self.__play("up")
 
+    def _on_click(self):
+        self.__play("click")
+
     def set_volume(self, volume: float) -> None:
         self.__volume = volume
 

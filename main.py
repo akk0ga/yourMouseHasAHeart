@@ -14,7 +14,7 @@ class Main:
     def run(self):
         self.__mouse.start()
         while True:
-            self.__mouse.listener_event_mouse()
+            self.__mouse.listener_mouse()
 
 
 if __name__ == '__main__':

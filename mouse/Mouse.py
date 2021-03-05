@@ -141,25 +141,8 @@ class Mouse(Listener, Action):
         launched = self.__action._first_move_action(self.__started, axes_difference)
         self.__started = launched
 
-    """
-    =======================================
-    click method
-    =======================================
-    """
-    def __click(self):
-        self.__action._action_click()
-
-    def listener_event_mouse(self) -> None:
-        """
-        listen what you are doing on the mouse
-        :return:
-        """
-        # listen __mouse event
-        with mouse.Events() as event:
-            original_axes: tuple = self.get_axes()
-            time.sleep(0.3)
-
-        # if __mouse move
+    def listener_mouse_movement(self, event, original_axes):
+        # if move
         if event:
             if not mixer.music.get_busy():
                 new_axes: tuple = self.get_axes()
@@ -174,11 +157,9 @@ class Mouse(Listener, Action):
                     if not self.__started:
                         self.__first_move(x_difference)
 
-                    # test axes difference
+                    # movement action
                     # self.__x_axes_movement(x_difference)
                     # self.__y_axes_movement(y_difference)
-
-                    # click movement
 
                 # if speak is false
                 else:
@@ -190,13 +171,46 @@ class Mouse(Listener, Action):
                     else:
                         self.__silence_time -= 1
 
-                print(y_difference)
+                print(f'difference:\n\tX: {x_difference}\n\tY: {y_difference}')
 
             """
             with open(self.log, 'a') as log:
                 log.write(f'{self.__axes_difference(new_axes, original_axes)}\n')
                 log.close()
             """
+    """
+    =======================================
+    click method
+    =======================================
+    """
+    def __click(self) -> None:
+        self.__action._action_click()
+
+    def listener_mouse_click(self, x, y, button, pressed):
+        if button.name == 'left':
+            if pressed and not mixer.music.get_busy():
+                self.__click()
+
+    """
+    =======================================
+    listener method
+    =======================================
+    """
+    def listener_mouse(self) -> None:
+        """
+        listen what you are doing on the mouse
+        :return:
+        """
+        # listen __mouse event
+        with mouse.Listener(on_click=self.listener_mouse_click) as listener:
+            listener.join()
+        """
+        with mouse.Events() as events:
+            original_axes: tuple = self.get_axes()
+            time.sleep(0.3)
+        """
+
+        #self.listener_mouse_movement(events, original_axes)
 
     """
     =======================================

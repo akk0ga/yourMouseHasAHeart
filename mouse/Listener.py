@@ -3,15 +3,16 @@ import abc
 
 class Listener(abc.ABC):
 
-    def listener_mouse_scroll(self):
-        """listen the __mouse scroll action"""
-        pass
-
-    def listener_mouse_click(self):
-        """listen the __mouse click action"""
+    def listener_mouse_scroll(self) -> None:
+        """listen the mouse scroll action"""
         pass
 
     @abc.abstractmethod
-    def listener_event_mouse(self):
-        """used to listen event affect __mouse"""
+    def listener_mouse_click(self, x, y, button, pressed) -> None:
+        """listen the mouse click action"""
+        pass
+
+    @abc.abstractmethod
+    def listener_mouse_movement(self, events: object, original_axes: tuple) -> None:
+        """listen the mouse movement"""
         pass
