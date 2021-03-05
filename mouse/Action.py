@@ -44,6 +44,7 @@ class Action(Voice):
     movement method
     =======================================
     """
+
     def _first_move_action(self, started, axes_difference) -> bool:
         """
         use for the first move when program is launched
@@ -119,5 +120,8 @@ class Action(Voice):
     click method
     =======================================
     """
+
     def _action_click(self):
-        self.__voice._on_click()
+        speak = True if randint(1, 100) <= 25 else False
+        if speak:
+            self.__voice._on_click()
