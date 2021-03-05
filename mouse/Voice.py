@@ -12,6 +12,11 @@ class Voice:
         self.__voice_mode: str = voice_mode
         mixer.init()
 
+    """
+    =======================================
+    general method
+    =======================================
+    """
     def __play(self, type: str) -> None:
         """
         play the music and set the volume
@@ -31,6 +36,11 @@ class Voice:
         index = randint(1, num_files)
         return f'voice/{type}/{self.__voice_mode}/{type}_{self.__voice_mode}_{index}.wav'
 
+    """
+    =======================================
+    start method
+    =======================================
+    """
     def _launch(self) -> None:
         """
         voice played when program turn on
@@ -47,6 +57,11 @@ class Voice:
         """
         self.__play('start')
 
+    """
+    =======================================
+    movement method
+    =======================================
+    """
     def _move_fast_x(self) -> None:
         """
         this is used when the __mouse move fast
@@ -95,9 +110,19 @@ class Voice:
         """
         self.__play("up")
 
+    """
+    =======================================
+    click method
+    =======================================
+    """
     def _on_click(self):
         self.__play("click")
 
+    """
+    =======================================
+    getter & setter
+    =======================================
+    """
     def set_volume(self, volume: float) -> None:
         self.__volume = volume
 

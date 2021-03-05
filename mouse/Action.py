@@ -120,4 +120,4 @@ class Action(Voice):
     =======================================
     """
     def _action_click(self):
-        self.__voice._c
+        self.__voice._on_click()
