@@ -170,7 +170,7 @@ class Mouse(Listener, Action):
     def __click(self) -> None:
         self.__action._click()
 
-    def listener_mouse_click(self):
+    def listener_mouse_click(self) -> None:
             self.__click()
 
     """
@@ -181,6 +181,9 @@ class Mouse(Listener, Action):
 
     def __scroll(self):
         self.__action._scrolled()
+
+    def listener_mouse_scroll(self) -> None:
+        self.__scroll()
 
     """
     =======================================
@@ -200,7 +203,7 @@ class Mouse(Listener, Action):
                     if hasattr(event, 'button'):
                         self.listener_mouse_click()
                     elif hasattr(event, 'dy') and event.dy == -1:
-                        self.__scroll()
+                        self.listener_mouse_scroll()
                     else:
                         original = self.get_axes()
                         self.listener_mouse_movement(original)
