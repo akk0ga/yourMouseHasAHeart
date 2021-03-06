@@ -1,19 +1,16 @@
 # Your mouse has a heart !
-This python program will make you more...empathic ? for your mouse. 
-This program check your mouse position for playing sound when hit border of your screen,
-if you go to fast and more !
+You are horrible with your mouse, and she's doing nightmare of you every night monster !
 
-# Run the app
-To run this app extract the zip archive and in the folder start the main.exe
+# Description
+This program get the axes of your mouse and in some situation says something example when
+you move your mouse to fast horizontally or vertically, and she suffers when you clicked on her buttons
 
 # The voice
 The voice used to make this program are the portal turret voice line, and you have the choice
-to use english or french voice
+to use English or French voice
 
 # Package install
 This is the list for external package I'm using:
 - pynput
 - pyautogui
 - pygame -> mixer
-
-

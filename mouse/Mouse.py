@@ -34,9 +34,6 @@ class Mouse(Listener, Action):
         self.__can_speak = True
         self.__silence_time = silence_time
 
-        # for the log
-        self.log: str = 'log/log.txt'
-
     """
     =======================================
     general method
@@ -74,7 +71,7 @@ class Mouse(Listener, Action):
 
     def __axes_difference(self, original_axes: tuple, new_axes: tuple) -> tuple:
         """
-        get the difference for each mouse movement
+        get the difference between two mouse movement
         :param original_axes:
         :param new_axes:
         :return:
@@ -191,7 +188,6 @@ class Mouse(Listener, Action):
         with mouse.Events() as events:
             for event in events:
                 if hasattr(event, 'button'):
-                    print('\n\nCLICKED\n\n')
                     self.listener_mouse_click()
                 else:
                     original = self.get_axes()
@@ -199,18 +195,3 @@ class Mouse(Listener, Action):
                         self.listener_mouse_movement(original)
                         if self.__can_speak:
                             break
-
-    """
-    =======================================
-    getter & setter
-    =======================================
-    """
-
-    def set_x(self, x: int) -> None:
-        self.__x = x
-
-    def set_y(self, y: int) -> None:
-        self.__y = y
-
-    x = property(fset=set_x)
-    y = property(fset=set_y)
