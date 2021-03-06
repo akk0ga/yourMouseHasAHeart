@@ -100,7 +100,7 @@ class Mouse(Listener, Action):
                 self.__can_speak = False
 
         elif 500 < x_axes_difference < 1000:
-            if self.__action._action_medium_move_x():
+            if self.__action._medium_move_x():
                 self.__can_speak = False
 
     def __y_axes_movement(self, y_axes_difference) -> None:

@@ -89,7 +89,7 @@ class Action(Voice):
         else:
             return False
 
-    def _action_medium_move_x(self):
+    def _medium_move_x(self):
         """
         action for medium move on x axes
         :return:

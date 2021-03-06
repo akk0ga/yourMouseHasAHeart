@@ -38,7 +38,7 @@ class Voice:
 
     """
     =======================================
-    start method
+    launch method
     =======================================
     """
     def _launch(self) -> None:
@@ -59,6 +59,7 @@ class Voice:
         """
         this method play voice line for the choosen type
         if confused set the param on True
+        if program is launch set launch on True
         :param type:
         :return:
         """
