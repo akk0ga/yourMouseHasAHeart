@@ -82,7 +82,7 @@ class Action(Voice):
         action on slow move for x axes
         :return:
         """
-        speak = randint(1, 10)
+        speak = randint(1, 100)
         if speak <= 10:
             self.__voice._move_slow_x()
             return True
@@ -94,7 +94,7 @@ class Action(Voice):
         action for medium move on x axes
         :return:
         """
-        speak = randint(1, 10)
+        speak = randint(1, 100)
         if speak <= 10:
             self.__voice._medium_move_x()
             return True

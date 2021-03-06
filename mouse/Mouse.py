@@ -136,8 +136,9 @@ class Mouse(Listener, Action):
         launched = self.__action._first_move_action(self.__started, axes_difference)
         self.__started = launched
 
-    def listener_mouse_movement(self, event, original_axes):
+    def listener_mouse_movement(self, original_axes):
         if not mixer.music.get_busy():
+            time.sleep(0.3)
             new_axes: tuple = self.get_axes()
             difference: tuple = self.__axes_difference(new_axes, original_axes)
             x_difference, y_difference = difference
@@ -189,12 +190,14 @@ class Mouse(Listener, Action):
         """
         # listen __mouse event
         with mouse.Events() as events:
-            original_axes: tuple = self.get_axes()
-            self.listener_mouse_movement(events, original_axes)
-            time.sleep(0.3)
             for event in events:
                 if hasattr(event, 'button'):
+                    print('click')
                     self.listener_mouse_click()
+                else:
+                    original_axes: tuple = self.get_axes()
+                    if not mixer.music.get_busy():
+                        self.listener_mouse_movement(original_axes)
 
     """
     =======================================

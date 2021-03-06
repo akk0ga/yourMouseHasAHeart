@@ -13,6 +13,6 @@ class Listener(abc.ABC):
         pass
 
     @abc.abstractmethod
-    def listener_mouse_movement(self, events: object, original_axes: tuple) -> None:
+    def listener_mouse_movement(self, original_axes: tuple) -> None:
         """listen the mouse movement"""
         pass
