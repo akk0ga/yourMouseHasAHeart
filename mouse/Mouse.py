@@ -8,7 +8,8 @@ from mouse.Action import Action
 
 class Mouse(Listener, Action):
 
-    def __init__(self, silence_time: int = 15, screen_width: int = 1920, screen_height: int = 1080, voice_mode: str = 'en'):
+    def __init__(self, silence_time: int = 15, screen_width: int = 1920, screen_height: int = 1080,
+                 voice_mode: str = 'en'):
         """
         create mouse instance, silence_time is default 15 for 5 sec if you want 10 sec set
         to 30
@@ -41,6 +42,7 @@ class Mouse(Listener, Action):
     general method
     =======================================
     """
+
     def get_axes(self) -> tuple:
         """
         get the __mouse axes
@@ -54,7 +56,7 @@ class Mouse(Listener, Action):
         set mouse position
         :rtype: None
         """
-        self.__controller.position = (self.__x/2, self.__y/2)
+        self.__controller.position = (self.__x / 2, self.__y / 2)
 
     def start(self) -> None:
         """
@@ -64,19 +66,12 @@ class Mouse(Listener, Action):
         self._set_position()
         self.__action._start_action()
 
-    def on_move(self, x, y) -> None:
-        """debug the mouse position on the screen"""
-        self.__x: int = x
-        self.__y: int = y
-        print('=======================================')
-        print(f'new position\n\tX: {x}\n\tY: {y}')
-        print('=======================================\n')
-
     """
     =======================================
     movement method
     =======================================
     """
+
     def __axes_difference(self, original_axes: tuple, new_axes: tuple) -> tuple:
         """
         get the difference for each mouse movement
@@ -99,8 +94,8 @@ class Mouse(Listener, Action):
         :return:
         """
         if x_axes_difference > 1000:
-            width = int(self.__x/2)
-            height = int(self.__y/2)
+            width = int(self.__x / 2)
+            height = int(self.__y / 2)
             self.__action._fast_move_x(width, height)
 
         elif 300 < x_axes_difference < 500:
@@ -129,7 +124,7 @@ class Mouse(Listener, Action):
         """
         x, y = self.get_axes()
 
-        if axes_difference > 200 and (x == 0 or x == self.__x-1):
+        if axes_difference > 200 and (x == 0 or x == self.__x - 1):
             self.__action._hit_screen_border_x_movement()
 
     def __first_move(self, axes_difference: int) -> None:
@@ -142,81 +137,71 @@ class Mouse(Listener, Action):
         self.__started = launched
 
     def listener_mouse_movement(self, event, original_axes):
-        # if move
-        if event:
-            if not mixer.music.get_busy():
-                new_axes: tuple = self.get_axes()
-                difference: tuple = self.__axes_difference(new_axes, original_axes)
-                x_difference, y_difference = difference
+        if not mixer.music.get_busy():
+            new_axes: tuple = self.get_axes()
+            difference: tuple = self.__axes_difference(new_axes, original_axes)
+            x_difference, y_difference = difference
 
-                self.__touch_border_screen(x_difference)
+            self.__touch_border_screen(x_difference)
 
-                # check if mouse can speak
-                if self.__can_speak:
-                    # check if first time program run
-                    if not self.__started:
-                        self.__first_move(x_difference)
+            # check if mouse can speak
+            if self.__can_speak:
+                # check if first time program run
+                if not self.__started:
+                    self.__first_move(x_difference)
 
-                    # movement action
-                    # self.__x_axes_movement(x_difference)
-                    # self.__y_axes_movement(y_difference)
+                # movement action
+                self.__x_axes_movement(x_difference)
+                self.__y_axes_movement(y_difference)
 
-                # if speak is false
+            # if speak is false
+            else:
+                # check if the silence time is done
+                if self.__action._wait_to_speak(self.__silence_time):
+                    self.__silence_time = 15
+                    self.__can_speak = True
+                    print('end wait')
                 else:
-                    # check if the silence time is done
-                    if self.__action._wait_to_speak(self.__silence_time):
-                        self.__silence_time = 15
-                        self.__can_speak = True
-                        print('end wait')
-                    else:
-                        self.__silence_time -= 1
+                    self.__silence_time -= 1
 
-                print(f'difference:\n\tX: {x_difference}\n\tY: {y_difference}')
-
-            """
-            with open(self.log, 'a') as log:
-                log.write(f'{self.__axes_difference(new_axes, original_axes)}\n')
-                log.close()
-            """
     """
     =======================================
     click method
     =======================================
     """
+
     def __click(self) -> None:
         self.__action._action_click()
 
-    def listener_mouse_click(self, x, y, button, pressed):
-        if button.name == 'left':
-            if pressed and not mixer.music.get_busy():
-                self.__click()
+    def listener_mouse_click(self):
+        self.__click()
 
     """
     =======================================
     listener method
     =======================================
     """
+
     def listener_mouse(self) -> None:
         """
         listen what you are doing on the mouse
         :return:
         """
         # listen __mouse event
-        with mouse.Listener(on_click=self.listener_mouse_click) as listener:
-            listener.join()
-        """
         with mouse.Events() as events:
             original_axes: tuple = self.get_axes()
+            self.listener_mouse_movement(events, original_axes)
             time.sleep(0.3)
-        """
-
-        #self.listener_mouse_movement(events, original_axes)
+            for event in events:
+                if hasattr(event, 'button'):
+                    self.listener_mouse_click()
 
     """
     =======================================
     getter & setter
     =======================================
     """
+
     def set_x(self, x: int) -> None:
         self.__x = x
 

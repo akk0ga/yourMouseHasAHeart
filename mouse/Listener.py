@@ -8,7 +8,7 @@ class Listener(abc.ABC):
         pass
 
     @abc.abstractmethod
-    def listener_mouse_click(self, x, y, button, pressed) -> None:
+    def listener_mouse_click(self) -> None:
         """listen the mouse click action"""
         pass
 

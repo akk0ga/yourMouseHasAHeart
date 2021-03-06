@@ -39,3 +39,9 @@ print(f'la moyenne est de : {total}')
 with open(average_log, 'a') as log:
     log.write(f'{total}\n')
     log.close()
+
+"""
+    with open(self.log, 'a') as log:
+        log.write(f'{self.__axes_difference(new_axes, original_axes)}\n')
+        log.close()
+    """
