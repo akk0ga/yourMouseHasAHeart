@@ -137,33 +137,32 @@ class Mouse(Listener, Action):
         self.__started = launched
 
     def listener_mouse_movement(self, original_axes):
-        if not mixer.music.get_busy():
-            time.sleep(0.3)
-            new_axes: tuple = self.get_axes()
-            difference: tuple = self.__axes_difference(new_axes, original_axes)
-            x_difference, y_difference = difference
+        time.sleep(0.3)
+        new_axes: tuple = self.get_axes()
+        difference: tuple = self.__axes_difference(new_axes, original_axes)
+        x_difference, y_difference = difference
 
-            self.__touch_border_screen(x_difference)
+        self.__touch_border_screen(x_difference)
 
-            # check if mouse can speak
-            if self.__can_speak:
-                # check if first time program run
-                if not self.__started:
-                    self.__first_move(x_difference)
+        # check if mouse can speak
+        if self.__can_speak:
+            # check if first time program run
+            if not self.__started:
+                self.__first_move(x_difference)
 
-                # movement action
-                self.__x_axes_movement(x_difference)
-                self.__y_axes_movement(y_difference)
+            # movement action
+            self.__x_axes_movement(x_difference)
+            self.__y_axes_movement(y_difference)
 
-            # if speak is false
+        # if speak is false
+        else:
+            # check if the silence time is done
+            if self.__action._wait_to_speak(self.__silence_time):
+                self.__silence_time = 15
+                self.__can_speak = True
+                print('end wait')
             else:
-                # check if the silence time is done
-                if self.__action._wait_to_speak(self.__silence_time):
-                    self.__silence_time = 15
-                    self.__can_speak = True
-                    print('end wait')
-                else:
-                    self.__silence_time -= 1
+                self.__silence_time -= 1
 
     """
     =======================================
@@ -192,12 +191,13 @@ class Mouse(Listener, Action):
         with mouse.Events() as events:
             for event in events:
                 if hasattr(event, 'button'):
-                    print('click')
+                    print('\n\nCLICKED\n\n')
                     self.listener_mouse_click()
                 else:
-                    original_axes: tuple = self.get_axes()
-                    if not mixer.music.get_busy():
-                        self.listener_mouse_movement(original_axes)
+                    original = self.get_axes()
+                    self.listener_mouse_movement(original)
+                    if self.__can_speak:
+                        break
 
     """
     =======================================
