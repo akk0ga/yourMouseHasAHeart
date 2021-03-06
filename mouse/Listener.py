@@ -1,7 +1,6 @@
 import abc
 
 
-@abc.abstractclassmethod
 class Listener(abc.ABC):
 
     @abc.abstractmethod

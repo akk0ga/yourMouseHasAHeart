@@ -7,7 +7,6 @@ from mouse.Action import Action
 
 
 class Mouse(Listener, Action):
-
     def __init__(self, silence_time: int = 15, screen_width: int = 1920, screen_height: int = 1080,
                  voice_mode: str = 'en'):
         """
