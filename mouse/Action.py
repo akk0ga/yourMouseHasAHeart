@@ -85,9 +85,9 @@ class Action(Voice):
         speak = True if randint(1, 100) <= 10 else False
         if speak:
             self.__voice._play_voice_line('slow_move')
-            return speak
+            return True
         else:
-            return speak
+            return False
 
     def _medium_move_x(self):
         """
@@ -97,9 +97,9 @@ class Action(Voice):
         speak = True if randint(1, 100) <= 10 else False
         if speak <= 10:
             self.__voice._play_voice_line('medium')
-            return speak
+            return True
         else:
-            return speak
+            return False
 
     def _go_up_movement(self):
         """

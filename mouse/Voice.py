@@ -55,21 +55,21 @@ class Voice:
     choose the voice to play method
     =======================================
     """
-    def _play_voice_line(self, type: str, confused: bool = False) -> None:
+    def _play_voice_line(self, quote: str, confused: bool = False) -> None:
         """
         this method play voice line for the choosen type
         if confused set the param on True
         if program is launch set launch on True
-        :param type:
+        :param quote:
         :return:
         """
         if not confused:
-            self.__play(type)
+            self.__play(quote)
         else:
             time.sleep(0.3)
             self._launch()
             time.sleep(0.3)
-            self.__play(type)
+            self.__play(quote)
 
     """
     =======================================

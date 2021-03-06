@@ -1,8 +1,10 @@
 import abc
 
 
+@abc.abstractclassmethod
 class Listener(abc.ABC):
 
+    @abc.abstractmethod
     def listener_mouse_scroll(self) -> None:
         """listen the mouse scroll action"""
         pass
