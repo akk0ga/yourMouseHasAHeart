@@ -1,5 +1,5 @@
 # Your mouse has a heart !
-You are horrible with your mouse, and she's doing nightmare of you every night !
+You are horrible with your mouse, and she's doing nightmare about you every night !
 
 # Description
 This program get the axes of your mouse and in some situation says something example when
