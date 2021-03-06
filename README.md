@@ -10,7 +10,7 @@ The voice used to make this program is the turret in Portal, and you have the ch
 to use English or French voice
 
 # Package install
-This is the list for external package I'm using:
+This is the list for external module I'm using:
 - pynput
 - pyautogui
 - pygame -> mixer
