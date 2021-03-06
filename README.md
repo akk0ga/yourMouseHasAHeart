@@ -6,7 +6,7 @@ This program get the axes of your mouse and in some situation says something exa
 you move your mouse to fast horizontally or vertically, and she suffers when you clicked on her buttons
 
 # The voice
-The voice used to make this program are the portal turret voice line, and you have the choice
+The voice used to make this program is the turret in Portal, and you have the choice
 to use English or French voice
 
 # Package install

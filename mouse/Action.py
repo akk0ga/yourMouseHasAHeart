@@ -121,7 +121,16 @@ class Action(Voice):
     =======================================
     """
 
-    def _action_click(self):
+    def _click(self):
         speak = True if randint(1, 100) <= 25 else False
         if speak:
             self.__voice._play_voice_line('click')
+
+    """
+    =======================================
+    scroll method
+    =======================================
+    """
+    def _scrolled(self):
+        self.__voice._play_voice_line('scroll')
+        print('scrolled')

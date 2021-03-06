@@ -168,10 +168,19 @@ class Mouse(Listener, Action):
     """
 
     def __click(self) -> None:
-        self.__action._action_click()
+        self.__action._click()
 
     def listener_mouse_click(self):
         self.__click()
+
+    """
+    =======================================
+    scroll method
+    =======================================
+    """
+
+    def __scroll(self):
+        self.__action._scrolled()
 
     """
     =======================================
@@ -189,6 +198,8 @@ class Mouse(Listener, Action):
             for event in events:
                 if hasattr(event, 'button'):
                     self.listener_mouse_click()
+                elif hasattr(event, 'dy') and event.dy == -1:
+                    self.__scroll()
                 else:
                     original = self.get_axes()
                     if not mixer.music.get_busy():
