@@ -171,7 +171,7 @@ class Mouse(Listener, Action):
         self.__action._click()
 
     def listener_mouse_click(self):
-        self.__click()
+            self.__click()
 
     """
     =======================================
@@ -196,13 +196,13 @@ class Mouse(Listener, Action):
         # listen __mouse event
         with mouse.Events() as events:
             for event in events:
-                if hasattr(event, 'button'):
-                    self.listener_mouse_click()
-                elif hasattr(event, 'dy') and event.dy == -1:
-                    self.__scroll()
-                else:
-                    original = self.get_axes()
-                    if not mixer.music.get_busy():
+                if not mixer.music.get_busy():
+                    if hasattr(event, 'button'):
+                        self.listener_mouse_click()
+                    elif hasattr(event, 'dy') and event.dy == -1:
+                        self.__scroll()
+                    else:
+                        original = self.get_axes()
                         self.listener_mouse_movement(original)
                         if self.__can_speak:
                             break

@@ -69,11 +69,11 @@ class Action(Voice):
         :return:
         """
         self.__voice._play_voice_line('fast')
-        confused = randint(1, 100)
+        confused = True if randint(1, 100) <= 25 else False
         while mixer.music.get_busy():
             pyautogui.moveTo(x=randint(0, self.__screen_width), y=randint(0, self.__screen_height),
                              duration=self.__speed)
-        if confused < 26:
+        if confused:
             self.__controller.position = (x_position, y_position)
             self._confused_action_movement()
 
@@ -82,24 +82,24 @@ class Action(Voice):
         action on slow move for x axes
         :return:
         """
-        speak = randint(1, 100)
-        if speak <= 10:
+        speak = True if randint(1, 100) <= 10 else False
+        if speak:
             self.__voice._play_voice_line('slow_move')
-            return True
+            return speak
         else:
-            return False
+            return speak
 
     def _medium_move_x(self):
         """
         action for medium move on x axes
         :return:
         """
-        speak = randint(1, 100)
+        speak = True if randint(1, 100) <= 10 else False
         if speak <= 10:
             self.__voice._play_voice_line('medium')
-            return True
+            return speak
         else:
-            return False
+            return speak
 
     def _go_up_movement(self):
         """
@@ -132,5 +132,6 @@ class Action(Voice):
     =======================================
     """
     def _scrolled(self):
-        self.__voice._play_voice_line('scroll')
-        print('scrolled')
+        speak = True if randint(1, 100) <= 10 else False
+        if speak:
+            self.__voice._play_voice_line('scroll')
