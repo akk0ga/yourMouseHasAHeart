@@ -23,7 +23,7 @@ class Action(Voice):
         print('run')
         self.__voice._launch()
         time.sleep(0.3)
-        self.__voice._start()
+        self.__voice._play_voice_line('start')
 
     def _wait_to_speak(self, waiting: int) -> bool:
         """
@@ -53,7 +53,7 @@ class Action(Voice):
         :return:
         """
         if not started and axes_difference > 60:
-            self.__voice._first_move()
+            self.__voice._play_voice_line('firstMove')
             return True
 
     def _confused_action_movement(self) -> None:
@@ -61,14 +61,14 @@ class Action(Voice):
         action when state confused
         :return:
         """
-        self.__voice._confused()
+        self.__voice._play_voice_line('confused', True)
 
     def _fast_move_x(self, x_position: int = 960, y_position: int = 540) -> None:
         """
         make to the __mouse fast and random direction
         :return:
         """
-        self.__voice._move_fast_x()
+        self.__voice._play_voice_line('fast')
         confused = randint(1, 100)
         while mixer.music.get_busy():
             pyautogui.moveTo(x=randint(0, self.__screen_width), y=randint(0, self.__screen_height),
@@ -84,7 +84,7 @@ class Action(Voice):
         """
         speak = randint(1, 100)
         if speak <= 10:
-            self.__voice._move_slow_x()
+            self.__voice._play_voice_line('slow_move')
             return True
         else:
             return False
@@ -96,7 +96,7 @@ class Action(Voice):
         """
         speak = randint(1, 100)
         if speak <= 10:
-            self.__voice._medium_move_x()
+            self.__voice._play_voice_line('medium')
             return True
         else:
             return False
@@ -106,14 +106,14 @@ class Action(Voice):
         used when mouse y axes go up
         :return:
         """
-        self.__voice._go_up()
+        self.__voice._play_voice_line('up')
 
     def _hit_screen_border_x_movement(self):
         """
         action to do when the mouse hit the border of the screen
         :return:
         """
-        self.__voice._voice_x_border()
+        self.__voice._play_voice_line('border')
 
     """
     =======================================
@@ -124,4 +124,4 @@ class Action(Voice):
     def _action_click(self):
         speak = True if randint(1, 100) <= 25 else False
         if speak:
-            self.__voice._on_click()
+            self.__voice._play_voice_line('click')

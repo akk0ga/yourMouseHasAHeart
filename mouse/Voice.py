@@ -50,73 +50,25 @@ class Voice:
         mixer.music.play()
         mixer.music.set_volume(self.__volume)
 
-    def _start(self) -> None:
-        """
-        voice launch only one time when program is launched
-        :return:
-        """
-        self.__play('start')
-
     """
     =======================================
-    movement method
+    choose the voice to play method
     =======================================
     """
-    def _move_fast_x(self) -> None:
+    def _play_voice_line(self, type: str, confused: bool = False) -> None:
         """
-        this is used when the __mouse move fast
-        :return void:
-        """
-        self.__play("fast")
-
-    def _move_slow_x(self) -> None:
-        """
-        play voice line for slow movement
+        this method play voice line for the choosen type
+        if confused set the param on True
+        :param type:
         :return:
         """
-        self.__play("slow_move")
-
-    def _medium_move_x(self) -> None:
-        """
-        play voice when movement is medium
-        :return:
-        """
-        self.__play("medium")
-
-    def _voice_x_border(self):
-        self.__play("border")
-
-    def _confused(self) -> None:
-        """
-        play voice when state is confused
-        :return:
-        """
-        time.sleep(0.3)
-        self._launch()
-        time.sleep(0.3)
-        self.__play('confused')
-
-    def _first_move(self) -> None:
-        """
-        play on the first mouse movement
-        :return:
-        """
-        self.__play("firstMove")
-
-    def _go_up(self) -> None:
-        """
-        used hen mouse y axes positive
-        :return:
-        """
-        self.__play("up")
-
-    """
-    =======================================
-    click method
-    =======================================
-    """
-    def _on_click(self):
-        self.__play("click")
+        if not confused:
+            self.__play(type)
+        else:
+            time.sleep(0.3)
+            self._launch()
+            time.sleep(0.3)
+            self.__play(type)
 
     """
     =======================================
