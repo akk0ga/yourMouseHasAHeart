@@ -195,9 +195,10 @@ class Mouse(Listener, Action):
                     self.listener_mouse_click()
                 else:
                     original = self.get_axes()
-                    self.listener_mouse_movement(original)
-                    if self.__can_speak:
-                        break
+                    if not mixer.music.get_busy():
+                        self.listener_mouse_movement(original)
+                        if self.__can_speak:
+                            break
 
     """
     =======================================
