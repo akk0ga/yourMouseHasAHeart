@@ -156,7 +156,6 @@ class Mouse(Listener, Action):
             if self.__action._wait_to_speak(self.__silence_time):
                 self.__silence_time = 15
                 self.__can_speak = True
-                print('end wait')
             else:
                 self.__silence_time -= 1
 

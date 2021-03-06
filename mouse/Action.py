@@ -36,7 +36,6 @@ class Action(Voice):
         if waiting <= 0:
             return True
         else:
-            print(f'il faut encore attendre: {waiting}')
             return False
 
     """
